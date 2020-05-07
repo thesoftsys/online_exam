@@ -66,7 +66,6 @@
                                     <option><?php echo $row['ename'];?></option>
                                     <?php } ?> 
                                  </select>
-                                 
                               </div>
                               <br>
                                 <div class="form-group" style="text-align: center;">

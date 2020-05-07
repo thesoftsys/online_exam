@@ -83,10 +83,78 @@
                                        <td><?php echo $row['option_four']; ?></td>
                                        <td><?php echo $row['right_option']; ?></td>
                                        <td>
-                                          <button type="button" class="btn btn-add btn-sm" data-toggle="modal" data-target="#customer1"><i class="fa fa-pencil"></i></button>
+                                          <button type="button" class="btn btn-add btn-sm" data-toggle="modal" data-target="#<?php echo $row ['id'];?>"><i class="fa fa-pencil"></i></b
+                                             utton>
                                           <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#customer2"><i class="fa fa-trash-o"></i> </button>
                                        </td>
                                     </tr>
+                                    <div class="modal fade" id="<?php echo $row['id']; ?>" tabindex="-1" role="dialog" aria-hidden="true">
+                  <div class="modal-dialog">
+                     <div class="modal-content">
+                        <div class="modal-header modal-header-primary">
+                           <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                           <h3><i class="fa fa-user m-r-5"></i> Update Questions</h3>
+                        </div>
+                        <div class="modal-body">
+                           <div class="row">
+                              <div class="col-md-12">
+                                 <form class="form-horizontal" action="code.php?flag=15&id=<?php echo $row['id']; ?>" method="post">
+                                    <fieldset>
+                                       <div class="col-md-6 form-group">
+                                          <label class="control-label">Course Name:</label>
+                                          <input type="text" value="<?php echo $row['cname']; ?>" name ="cname" placeholder="Enter Course Name"  class="form-control">
+                                       </div>
+                                       <!-- Text input-->
+                                       <div class="col-md-6 form-group">
+                                          <label class="control-label">Exam Name:</label>
+                                          <input type="text" value="<?php echo $row['ename']; ?>" name ="ename" placeholder="Exam Name" class="form-control">
+                                       </div>
+                                       <!-- Text input-->
+                                       <div class="col-md-6 form-group">
+                                          <label class="control-label">Enter Question:</label>
+                                          <input type="text" value="<?php echo $row['question']; ?>" name ="question" placeholder="Enter Question" class="form-control">
+                                       </div>
+                                       <div class="col-md-6 form-group">
+                                          <label class="control-label">Option One</label>
+                                          <input type="text" value="<?php echo $row['option_one']; ?> " name ="option_one" placeholder="Option One" class="form-control">
+                                       </div>
+                                       <div class="col-md-6 form-group">
+                                          <label class="control-label">Option Two</label>
+                                          <input type="text" value="<?php echo $row['option_two']; ?>" name ="option_two" placeholder="Option Two" class="form-control">
+                                       </div>
+                                        <div class="col-md-6 form-group">
+                                          <label class="control-label">Option Three</label>
+                                          <input type="text" name ="option_three" value="<?php echo $row['option_three']; ?>" class="form-control">
+                                       </div>
+                                        <div class="col-md-6 form-group">
+                                          <label class="control-label">Option Four</label>
+                                          <input type="text" name ="option_four" value="<?php echo $row['option_four']; ?>" class="form-control">
+                                       </div>
+                                        <div class="col-md-6 form-group">
+                                          <label class="control-label">Right Option</label>
+                                          <input type="text" name ="right_option" value="<?php echo $row['right_option']; ?>" class="form-control">
+                                       </div>
+
+                                       <div class="col-md-12 form-group user-form-group">
+                                          <div class="pull-right">
+                                             <button type="button" class="btn btn-danger btn-sm">Cancel</button>
+                                             <button type="submit" class="btn btn-add btn-sm">Update</button>
+                                          </div>
+                                       </div>
+                                    </fieldset>
+                                 </form>
+                              </div> 
+                           </div>
+                        </div>
+                        
+                        <div class="modal-footer">
+                           <button type="button" class="btn btn-danger pull-left" data-dismiss="modal">Close</button>
+                        </div>
+                     </div>
+                     <!-- /.modal-content -->
+                  </div>
+                  <!-- /.modal-dialog -->
+               </div>
                                     <?php } ?>
                                  </tbody>
                               </table>
@@ -104,72 +172,8 @@
 
 
                ?>
-               <div class="modal fade" id="customer1" tabindex="-1" role="dialog" aria-hidden="true">
-                  <div class="modal-dialog">
-                     <div class="modal-content">
-                        <div class="modal-header modal-header-primary">
-                           <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                           <h3><i class="fa fa-user m-r-5"></i> Update Questions</h3>
-                        </div>
-                        <div class="modal-body">
-                           <div class="row">
-                              <div class="col-md-12">
-                                 <form class="form-horizontal" action="code.php?flag=15&id=<?php echo $row['id']; ?>" method="post">
-                                    <fieldset>
-                                       <div class="col-md-6 form-group">
-                                          <label class="control-label">Course Name:</label>
-                                          <input type="text" value="<?php echo $row['cname']; ?>" placeholder="Enter Course Name" class="form-control">
-                                       </div>
-                                       <!-- Text input-->
-                                       <div class="col-md-6 form-group">
-                                          <label class="control-label">Exam Name:</label>
-                                          <input type="text" value="<?php echo $row['ename']; ?>" placeholder="Exam Name" class="form-control">
-                                       </div>
-                                       <!-- Text input-->
-                                       <div class="col-md-6 form-group">
-                                          <label class="control-label">Enter Question:</label>
-                                          <input type="text" value="<?php echo $row['question']; ?>" placeholder="Enter Question" class="form-control">
-                                       </div>
-                                       <div class="col-md-6 form-group">
-                                          <label class="control-label">Option One</label>
-                                          <input type="text" value="<?php echo $row['option_one']; ?>" placeholder="Option One" class="form-control">
-                                       </div>
-                                       <div class="col-md-6 form-group">
-                                          <label class="control-label">Option Two</label>
-                                          <input type="text" value="<?php echo $row['option_two']; ?>" placeholder="Option Two" class="form-control">
-                                       </div>
-                                        <div class="col-md-6 form-group">
-                                          <label class="control-label">Option Three</label>
-                                          <input type="text" value="<?php echo $row['option_three']; ?>" class="form-control">
-                                       </div>
-                                        <div class="col-md-6 form-group">
-                                          <label class="control-label">Option Four</label>
-                                          <input type="text" value="<?php echo $row['option_four']; ?>" class="form-control">
-                                       </div>
-                                        <div class="col-md-6 form-group">
-                                          <label class="control-label">Right Option</label>
-                                          <input type="text" value="<?php echo $row['right_option']; ?>" class="form-control">
-                                       </div>
 
-                                       <div class="col-md-12 form-group user-form-group">
-                                          <div class="pull-right">
-                                             <button type="button" class="btn btn-danger btn-sm">Cancel</button>
-                                             <button type="submit" class="btn btn-add btn-sm">Update</button>
-                                          </div>
-                                       </div>
-                                    </fieldset>
-                                 </form>
-                              </div> 
-                           </div>
-                        </div>
-                        <div class="modal-footer">
-                           <button type="button" class="btn btn-danger pull-left" data-dismiss="modal">Close</button>
-                        </div>
-                     </div>
-                     <!-- /.modal-content -->
-                  </div>
-                  <!-- /.modal-dialog -->
-               </div>
+
                <!-- /.modal -->
                <!-- Modal -->    
                <!-- Customer Modal2 -->

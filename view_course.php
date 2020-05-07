@@ -67,27 +67,12 @@
                                        <td><?php echo $sr++;?></td>
                                        <td><?php echo $row['cname']; ?></td>
                                        <td>
-                                          <button type="button" class="btn btn-add btn-sm" data-toggle="modal" data-target="#customer1"><i class="fa fa-pencil"></i></button>
+                                          <button type="button" class="btn btn-add btn-sm" data-toggle="modal" data-target="#<?php echo $row['id']; ?>"><i class="fa fa-pencil"></i></button>
                                           <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#customer2"><i class="fa fa-trash-o"></i> </button>
                                        </td>
                                     </tr>
-                                       <?php   
-                                       }
-                                       ?>
-                                 </tbody>
-                              </table>
-                           </div>
-                        </div>
-                     </div>
-                  </div>
-               </div>
-               <!-- customer Modal1 -->
-               <?php 
-                  include('includes/connection.php');
-                  $sel = "SELECT * FROM add_course";
-                  $query = mysqli_query($db,$sel);
-                ?>   
-               <div class="modal fade" id="customer1" tabindex="-1" role="dialog" aria-hidden="true">
+
+                                    <div class="modal fade" id="<?php echo $row['id']; ?>" tabindex="-1" role="dialog" aria-hidden="true">
                   <div class="modal-dialog">
                      <div class="modal-content">
                         <div class="modal-header modal-header-primary">
@@ -97,17 +82,14 @@
                         <div class="modal-body">
                            <div class="row">
                               <div class="col-md-12">
-                                 <form class="form-horizontal" action="code.php?flag=9" method="post">
+                                 <form class="form-horizontal" action="code.php?flag=9&id=<?php echo $row['id']; ?>" method="post">
                                     <fieldset>
                                        <!-- Text input-->
-                                       <div class="col-md-4 form-group">
-                                          <?php 
-                                             while($row = mysqli_fetch_array($query,MYSQLI_BOTH))
-                                             {
-                                          ?>
+                                       <div class="col-md-12 form-group">
+                                          
                                           <label class="control-label">Course Name:</label>
-                                          <input type="text" placeholder="Course Name" class="form-control" value="<?php echo $row['cname']; ?>">
-                                          <?php } ?>
+                                          <input type="text" name="cname" placeholder="Course Name" class="form-control" value="<?php echo $row['cname']; ?>">
+                                          
                                        </div>
                                        <div class="col-md-12 form-group user-form-group">
                                           <div class="pull-right">
@@ -128,6 +110,24 @@
                   </div>
                   <!-- /.modal-dialog -->
                </div>
+                                       <?php   
+                                       }
+                                       ?>
+                                 </tbody>
+                              </table>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+               <!-- customer Modal1 -->
+               <?php 
+                  include('includes/connection.php');
+                  $sel = "SELECT * FROM add_course";
+                  $query = mysqli_query($db,$sel);
+                  $row = mysqli_fetch_array($query,MYSQLI_BOTH);
+                ?>   
+               
                <!-- /.modal -->
                <!-- Modal -->    
                <!-- Customer Modal2 -->
@@ -141,7 +141,7 @@
                         <div class="modal-body">
                            <div class="row">
                               <div class="col-md-12">
-                                 <form class="form-horizontal" action="code.php?flag=10&delid=<?php echo $row['id']; ?>" method="post">
+                                 <form class="form-horizontal" action="code.php?flag=10&delid=<?php echo $row ['id']; ?>" method="post">
                                     <fieldset>
                                        <div class="col-md-12 form-group user-form-group">
                                           <label class="control-label">Delete Course</label>
@@ -163,6 +163,7 @@
                   </div>
                   <!-- /.modal-dialog -->
                </div>
+
                <!-- /.modal -->
             </section>
             <!-- /.content -->

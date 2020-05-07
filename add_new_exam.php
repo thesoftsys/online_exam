@@ -1,6 +1,9 @@
       <?php 
       include('includes/header.php');
       include('includes/sidebar.php');
+      include('includes/connection.php');
+      $sel = "SELECT * FROM add_course";
+      $query = mysqli_query($db,$sel);
 
       ?>
          <!-- =============================================== -->
@@ -25,28 +28,49 @@
                         <div class="panel-heading">
                            <div class="btn-group" id="buttonlist"> 
                               <a class="btn btn-add " href="view_live_exam.php"> 
-                              <i class="fa fa-list"></i>View Live Exam List </a>  
+                              <i class="fa fa-list">&nbsp;</i>View Live Exam List </a>  
                            </div>
                         </div>
                         <div class="panel-body">
                            <form class="col-sm-6" action="code.php?flag=11" method="post">
 
                               <div class="form-group">
+                                 
+                                 <label>Select Course Name</label>
+
+                                 <select class="form-control" name="cname">
+                                    <?php 
+                                    while($row = mysqli_fetch_array($query,MYSQLI_BOTH))
+                                    {
+                                    ?>
+                                    <option><?php echo $row['cname'];?></option>
+                                    <?php } ?> 
+                                 </select>
+                                   
+                              </div>
+
+                              <div class="form-group">
                                  <label>Exam Name</label>
                                  <input type="text" class="form-control" name="ename" placeholder="Enter Exam Name" required>
                               </div>
 
-                              <div class="form-group">
-                                 <label>Course Code</label>
-                                 <input type="text" class="form-control" name="ccode" placeholder="Enter Course Code" required>
-                              </div>
-                              <div class="form-group">
+                                                            <div class="form-group">
                                  <label>Number of Questions</label>
                                  <input type="text" class="form-control" name="nquestion" placeholder="Enter Number of Questions" required>
                               </div>
-                              <div class="form-group">
-                                 <label>Time</label>
-                                 <input type="time" class="form-control" name="time" placeholder="" required>
+                             <div class="form-group">
+                                 
+                                 <label>Select Time</label>
+
+                                 <select class="form-control" name="time">
+                                    
+                                    <option>30 Min</option>
+                                    <option>60 Min</option>
+                                    <option>90 Min</option>
+                                    <option>120 Min</option>
+                                     
+                                 </select>
+                                   
                               </div>
                               <div class="form-group">
                                  <label>Passing Max</label>

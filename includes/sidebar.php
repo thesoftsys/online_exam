@@ -58,7 +58,7 @@
                      </a>
                      <ul class="treeview-menu">
                         <li><a href="add_questions.php">Add Questions to Exam</a></li>
-                        <li><a href="view_questions.php">Questions View</a></li>
+                        <li><a href="view_questions.php">View Questions </a></li>
                      </ul>
                   </li>
                   <li class="treeview">
@@ -152,7 +152,7 @@
                      </span>
                      </a>
                      <ul class="treeview-menu">
-                        <li><a href="add_course.php">Enroll Exam</a></li><!-- 
+                        <li><a href="enroll_new_exam.php">Enroll Exam</a></li><!-- 
                         <li><a href="emanage.html">Pending</a></li>
                         <li><a href="ecategory.html">Resolved</a></li> -->
                      </ul>

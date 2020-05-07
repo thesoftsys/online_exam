@@ -55,8 +55,8 @@
                                  <thead>
                                     <tr class="info">
                                        <th>Sr.</th>
+                                       <th>Course Name</th>
                                        <th>Exam Name</th>
-                                       <th>Course Code</th>
                                        <th>Number of Questions</th>
                                        <th>Time</th>
                                        <th>Passing Max</th>
@@ -76,8 +76,8 @@
                                     <tr>
                                        
                                        <td><?php echo $sr++;?></td>
+                                       <td><?php echo $row['cname']; ?></td>
                                        <td><?php echo $row['ename']; ?></td>
-                                       <td><?php echo $row['ccode']; ?></td>
                                        <td><?php echo $row['nquestion']; ?></td>
                                        <td><?php echo $row['time']; ?></td>
                                        <td><?php echo $row['pmax']; ?></td>
@@ -101,7 +101,7 @@
                                        </td>
                                     </tr>
 
-                                    <div class="modal fade" id="<?php echo $row['id'] ?>" tabindex="-1" role="dialog" aria-hidden="true">
+                                    <div class="modal fade" id="<?php echo $row['id']; ?>" tabindex="-1" role="dialog" aria-hidden="true">
                   <div class="modal-dialog">
                      <div class="modal-content">
                         <div class="modal-header modal-header-primary">
@@ -111,35 +111,35 @@
                         <div class="modal-body">
                            <div class="row">
                               <div class="col-md-12">
-                                 <form class="form-horizontal">
+                                 <form class="form-horizontal" action="code.php?flag=18&id=<?php echo $row['id']; ?>" method="post">
                                     <fieldset>
                                        <!-- Text input-->
                                     <div class="col-md-6 form-group">
                                           <label class="control-label">Exam Name:</label>
-                                          <input type="text" placeholder="Enter Exam Name" value="<?php echo $row['ename']; ?>" class="form-control">
+                                          <input type="text" name="ename" placeholder="Enter Exam Name" value="<?php echo $row['ename']; ?>" class="form-control">
                                        </div>
 
                                        <div class="col-md-6 form-group">
-                                          <label class="control-label">Course Code:</label>
-                                          <input type="text" placeholder="Enter Course Code" value="<?php echo $row['ccode']; ?>" class="form-control">
+                                          <label class="control-label">Course Name:</label>
+                                          <input type="text" name="ccode" placeholder="Enter Course Name" value="<?php echo $row['ccode']; ?>" class="form-control">
                                        </div>
                                        <!-- Text input-->
                                        <div class="col-md-6 form-group">
                                           <label class="control-label">Number of Questions:</label>
-                                          <input type="number" placeholder="Enter Number of Course" value="<?php echo $row['nquestion']; ?>" class="form-control">
+                                          <input type="number" name="nquestion" placeholder="Enter Number of Course" value="<?php echo $row['nquestion']; ?>" class="form-control">
                                        </div>
                                        <!-- Text input-->
                                        <div class="col-md-6 form-group">
                                           <label class="control-label">Time</label>
-                                          <input type="time" class="form-control" value="<?php echo $row['time']; ?>">
+                                          <input type="time" class="form-control" name="time" value="<?php echo $row['time']; ?>">
                                        </div>
                                        <div class="col-md-6 form-group">
                                           <label class="control-label">Passing Max</label><br>
-                                          <input type="number" placeholder="Enter Passing Max" value="<?php echo $row['pmax']; ?>" class="form-control">
+                                          <input type="number" name="pmax" placeholder="Enter Passing Max" value="<?php echo $row['pmax']; ?>" class="form-control">
                                        </div>
                                        <div class="col-md-6 form-group">
                                           <label class="control-label">Each Question Max</label>
-                                          <input type="number" placeholder="Enter Each Question Max" value="<?php echo $row['equestionm']; ?>" class="form-control">
+                                          <input type="number" name="equestionm" placeholder="Enter Each Question Max" value="<?php echo $row['equestionm']; ?>" class="form-control">
                                        </div>
                                        <div class="col-md-12 form-group user-form-group">
                                           <div class="pull-right">
@@ -179,6 +179,38 @@
                
             </section>
             <!-- /.content -->
+             <div class="modal fade" id="customer2" tabindex="-1" role="dialog" aria-hidden="true">
+                  <div class="modal-dialog">
+                     <div class="modal-content">
+                        <div class="modal-header modal-header-primary">
+                           <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                           <h3><i class="fa fa-user m-r-5"></i> Delete Questions Data</h3>
+                        </div>
+                        <div class="modal-body">
+                           <div class="row">
+                              <div class="col-md-12">
+                                 <form class="form-horizontal" action="code.php?flag=19&delid=<?php echo $row ['id']; ?>" method="post">
+                                    <fieldset>
+                                       <div class="col-md-12 form-group user-form-group">
+                                          <label class="control-label">Delete Questions Data</label>
+                                          <div class="pull-right">
+                                             <button type="button" class="btn btn-danger btn-sm">NO</button>
+                                             <button type="submit" class="btn btn-add btn-sm">YES</button>
+                                          </div>
+                                       </div>
+                                    </fieldset>
+                                 </form>
+                              </div>
+                           </div>
+                        </div>
+                        <div class="modal-footer">
+                           <button type="button" class="btn btn-danger pull-left" data-dismiss="modal">Close</button>
+                        </div>
+                     </div>
+                     <!-- /.modal-content -->
+                  </div>
+                  <!-- /.modal-dialog -->
+               </div>
          </div>
 
          <?php include('includes/footer.php'); ?>

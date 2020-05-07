@@ -160,14 +160,27 @@
 
 		case 9:
 				//Update  Courses Admin
-				echo "ok";
+				extract($_POST);
+				$id = $_REQUEST['id'];
+				$sel = "SELECT * FROM add_course WHERE id = '$id'";
+				$query = mysqli_query($db,$sel);
+				$row = mysqli_fetch_array($query,MYSQLI_BOTH);
+
+				$update = "UPDATE add_course SET cname = '$cname' WHERE id = '$id' ";
+				$query= mysqli_query($db,$update);
+
+				if($query)
+				{
+
+				echo "<script>alert('Our Course Successfully Updated');location.href='view_course.php'</script>";
+				}
+				
 		break;
 
 		case 10:
 				//Delete Admin Upload Courses;
 				
 			$delid = $_REQUEST['delid'];
-
     		$sel = "SELECT * FROM add_course WHERE id= '$delid'";
     		$selquery = mysqli_query($db,$sel);
     		$row = mysqli_fetch_array($selquery,MYSQLI_BOTH);
@@ -184,11 +197,11 @@
 		case 11:
 				//Admin Manage Exam (Add New Exam) Insert Data in add_new_exam table;
 				extract($_POST);
-				$ins = "INSERT INTO add_new_exam (ename,ccode,nquestion,time,pmax,equestionm) VALUES('$ename','$ccode','$nquestion','$time','$pmax','$equestionm')";
+				$ins = "INSERT INTO add_new_exam (ename,cname,nquestion,time,pmax,equestionm) VALUES('$ename','$cname','$nquestion','$time','$pmax','$equestionm')";
 				$query = mysqli_query($db,$ins);
 				if($query)
 				{
-					echo "<script>alert('New Exam Added Successfully');location.href='view_live_exam.php'</script>";
+					// echo "<script>alert('New Exam Added Successfully');location.href='view_live_exam.php'</script>";
 				}
 		break;
 
@@ -242,23 +255,18 @@
 			case 15:
 					//Admin Update add_new_exam;
 				extract($_POST);
-				$upid = $_REQUEST['id'];
-				$sel = "SELECT *FROM add_questions WHERE id = '$id'";
-				$selquery = mysqli_query($db,$sel);
-				$row = mysqli_fetch_array($selquery,MYSQLI_BOTH);
+				$id = $_REQUEST['id'];
+				$sel = "SELECT * FROM add_questions WHERE id = '$id'";
+				$query = mysqli_query($db,$sel);
+				$row = mysqli_fetch_array($query,MYSQLI_BOTH);
 
-				print_r($row);
-				exit();
-
-				$update = "UPDATE add_questions SET drname = '$drname', department= '$department', specialization = '$specialization', degree = '$degree', mobile = '$mobile', email = '$email', jdate = '$jdate', gender = '$gender', address = '$address', image = '$filename' WHERE id = '$id' ";
+				$update = "UPDATE add_questions SET cname = '$cname', question= '$question', option_one = '$option_one', option_two = '$option_two', option_three = '$option_three', option_four = '$option_four', right_option = '$right_option' WHERE id = '$id' ";
 				$query= mysqli_query($db,$update);
 
 				if($query)
 				{
 
-				move_uploaded_file($tempname, $dir.$filename);
-				unlink($dir.$row['image']);
-				echo "<script>alert('Doctors Data Update Successfully');location.href='all_doctors.php'</script>";
+				echo "<script>alert('View Questions List Updated Successfully');location.href='view_questions.php'</script>";
 				}
 			break;
 
@@ -279,20 +287,64 @@
 		break;
 
 		case 17:
+					//Exam Pause and live code;
 		$status =  $_REQUEST['status'];
 		$id= $_REQUEST['id'];
 
 		$updateStatus = mysqli_query($db,"UPDATE add_new_exam SET status = $status WHERE id = '$id'");
-		
-		// if($status == '1')
-		// 	{
-		// 	mysqli_query($db,"UPDATE `Live` SET `status` = 'Pause'");
-		// 	}
-		// 	else
-		// 	{
-		// 	mysqli_query($db,"UPDATE `Pause` SET `status` = 'Live'");
-		// 	}
+
 			header('location:view_live_exam.php');
+		break;
+
+		case 18:
+				//Admin update view live exam
+				extract($_POST);
+				$id = $_REQUEST['id'];
+				$sel = "SELECT * FROM add_new_exam WHERE id = '$id'";
+				$query = mysqli_query($db,$sel);
+				$row = mysqli_fetch_array($query,MYSQLI_BOTH);
+
+				$update = "UPDATE add_new_exam SET ename = '$ename', ccode= '$ccode', nquestion = '$nquestion', time = '$time', pmax = '$pmax', equestionm = '$equestionm' WHERE id = '$id' ";
+				$query= mysqli_query($db,$update);
+
+				if($query)
+				{
+
+				echo "<script>alert('Live Exam Successfully Updated');location.href='view_live_exam.php'</script>";
+				}
+		break;
+
+		case 19:	
+		//Admin Delete view live exam
+		
+		$delid = $_REQUEST['delid'];
+		$sel = "SELECT * FROM add_new_exam WHERE id= '$delid'";
+		$selquery = mysqli_query($db,$sel);
+		$row = mysqli_fetch_array($selquery,MYSQLI_BOTH);
+
+		$del = "DELETE FROM add_new_exam WHERE id='$delid'";
+		$query =mysqli_query($db,$del);
+		if($query)
+		{
+
+		header("Location:view_live_exam.php");
+		}
+
+		break;
+
+
+			/*Student Panal code start now*/
+
+		case 20:
+		//Admin Insert Enroll For New Exam Code
+			extract($_POST);
+			$ins = "INSERT INTO student_enroll (email,password,cname) VALUES('$email','$password','$cname')";
+			$query = mysqli_query($db,$ins);
+			if($query)
+			{
+			echo "<script>alert('Your Request Successfully Submited');location.href='enroll_new_exam.php'</script>";
+			}
+				
 		break;
 	}
 	
