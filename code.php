@@ -150,12 +150,21 @@
 		case 8:
 				//Admin(Teacher) Add Course
 				extract($_POST);
+				
+				if(mysqli_num_rows(mysqli_query($db,"SELECT *FROM add_course WHERE cname = '$cname'")) > 0)
+				{
+					echo "<script>alert('Course Alredy Exist'); location.href='add_course.php'</script>";
+				}
+				else
+				{
+
 				$ins = "INSERT INTO add_course (cname) VALUES('$cname')";
 				$query = mysqli_query($db,$ins);
 				if($query)
 				{
 					echo "<script>alert('Course Added Successfully');location.href='view_course.php'</script>";
 				}
+			}
 		break;
 
 		case 9:
@@ -197,12 +206,28 @@
 		case 11:
 				//Admin Manage Exam (Add New Exam) Insert Data in add_new_exam table;
 				extract($_POST);
-				$ins = "INSERT INTO add_new_exam (ename,cname,nquestion,time,pmax,equestionm) VALUES('$ename','$cname','$nquestion','$time','$pmax','$equestionm')";
-				$query = mysqli_query($db,$ins);
-				if($query)
+
+				if(isset($_POST['submit']))
+				{	
+					if(mysqli_num_rows(mysqli_query($db,"SELECT *FROM add_new_exam WHERE cname = '$cname' AND ename = '$ename' ")) > 0)
+					{
+						echo "<script>alert('Exam Name And Course Name  Exist');location.href='add_new_exam.php'</script>";
+					}
+				else
 				{
-					// echo "<script>alert('New Exam Added Successfully');location.href='view_live_exam.php'</script>";
+				
+					$ins = "INSERT INTO add_new_exam (cname,ename,nquestion,exam_time,pmax,equestionm) VALUES('$cname','$ename','$nquestion','$time','$pmax','$equestionm')";
+					$query = mysqli_query($db,$ins);
+					if($query)
+					{
+						echo "<script>alert('New Exam Added Successfully');location.href='view_live_exam.php'</script>";
+					}
 				}
+
+
+				}
+				
+				
 		break;
 
 		case 12:
@@ -243,8 +268,12 @@
 
 		case 14:
 				//Admin Add Questions  upload add_new_exam 
-
+			
 			extract($_POST);
+
+			$selectExamId = mysqli_query($db,"SELECT *FROM add_new_exam WHERE cname = '$cname' AND ename = '$ename'");
+			$result = mysqli_fetch_array($selectExamId,MYSQLI_BOTH);
+			
 			$ins = "INSERT INTO add_questions (cname,ename,question,option_one,option_two,option_three,option_four,right_option) VALUES('$cname','$ename','$question','$option_one','$option_two','$option_three','$option_four','$right_option')";
 			$query = mysqli_query($db,$ins);
 			if($query)

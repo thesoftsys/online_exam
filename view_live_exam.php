@@ -79,7 +79,7 @@
                                        <td><?php echo $row['cname']; ?></td>
                                        <td><?php echo $row['ename']; ?></td>
                                        <td><?php echo $row['nquestion']; ?></td>
-                                       <td><?php echo $row['time']; ?></td>
+                                       <td><?php echo $row['exam_time']; ?></td>
                                        <td><?php echo $row['pmax']; ?></td>
                                        <td><?php echo $row['equestionm']; ?></td>
                                        <td>
@@ -115,13 +115,13 @@
                                     <fieldset>
                                        <!-- Text input-->
                                     <div class="col-md-6 form-group">
-                                          <label class="control-label">Exam Name:</label>
-                                          <input type="text" name="ename" placeholder="Enter Exam Name" value="<?php echo $row['ename']; ?>" class="form-control">
+                                          <label class="control-label">Course Name:</label>
+                                          <input type="text" name="ename" placeholder="Enter Exam Name" value="<?php echo $row['cname']; ?>" class="form-control">
                                        </div>
 
                                        <div class="col-md-6 form-group">
-                                          <label class="control-label">Course Name:</label>
-                                          <input type="text" name="ccode" placeholder="Enter Course Name" value="<?php echo $row['ccode']; ?>" class="form-control">
+                                          <label class="control-label">Exam Name:</label>
+                                          <input type="text" name="ccode" placeholder="Enter Course Name" value="<?php echo $row['ename']; ?>" class="form-control">
                                        </div>
                                        <!-- Text input-->
                                        <div class="col-md-6 form-group">

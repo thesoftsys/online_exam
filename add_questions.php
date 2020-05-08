@@ -35,12 +35,13 @@
                            </div>
                         </div>
                         <div class="panel-body">
-                           <form class="col-sm-6" action="code.php?flag=14"  method="POST">
+                           <form class="col-sm-6" action="add_question_to_exam.php"  method="GET">
                               <div class="form-group">
                                  
                                  <label>Select Course</label>
 
-                                 <select class="form-control" name="cname">
+                                 <select id="courseName" class="form-control" name="cname" onchange="selectCourse()" >
+                                 <option value="none" selected disabled hidden>Select Course</option> 
                                     <?php 
                                     while($row = mysqli_fetch_array($query,MYSQLI_BOTH))
                                     {
@@ -51,55 +52,17 @@
                                    
                               </div>
 
-                           <?php
-                           $sel = "SELECT * FROM add_new_exam";
-                           $query = mysqli_query($db,$sel);
-                           ?>
-                             
-                               <div class="form-group">
+                               <div class="form-group"  >
                                  <label>Select Exam</label>
-                                 <select class="form-control" name="ename">
-                                    <?php 
-                                    while($row = mysqli_fetch_array($query,MYSQLI_BOTH))
-                                    {
-                                    ?>
-                                    <option><?php echo $row['ename'];?></option>
-                                    <?php } ?> 
+                                 <select class="form-control" name="ename" id="examName">
+                                    
+                                   
+                                   
                                  </select>
                               </div>
-                              <br>
-                                <div class="form-group" style="text-align: center;">
-                                 <label>{-Proceed to Add Question-}</label>
-                               </div>
-
-                              <div class="form-group">
-                                 <label>Enter Question</label>
-                                 <input type="text" class="form-control" name="question" placeholder="Enter Question" required>
-                              </div>
-                              <div class="form-group">
-                                 <label>Option One</label>
-                                 <input type="text" class="form-control" name="option_one" placeholder="Enter Option One" required>
-                              </div>
-                              <div class="form-group">
-                                 <label>Option Two</label>
-                                 <input type="text" class="form-control" name="option_two" placeholder="Enter Option Two" required>
-                              </div>
-                              <div class="form-group">
-                                 <label>Option Thre</label>
-                                 <input type="text" class="form-control" name="option_three"  placeholder="Enter Option Three" required>
-                              </div>
-
-                              <div class="form-group">
-                                 <label>Option Four</label>
-                                 <input type="text" class="form-control" name="option_four"  placeholder="Enter Option Four" required>
-                              </div>
-
-                              <div class="form-group">
-                                 <label>Rigth Option</label>
-                                 <input type="text" class="form-control" name="right_option" placeholder="Enter Right Option" required>
-                              </div>
+                  
                               <div class="reset-button">
-                                 <button class="btn btn-success">Save</button>
+                                 <button class="btn btn-success">Process</button>
                               </div>
                            </form>
                         </div>
@@ -108,6 +71,20 @@
                </div>
             </section>
             <!-- /.content -->
+
+
+         <script>
+            function selectCourse()
+            {
+               var xmlhttp = new XMLHttpRequest();
+               var courseName = document.getElementById("courseName").value;
+               
+               xmlhttp.open("GET","forajax/getExam.php?courseName="+courseName,false);
+               xmlhttp.send(null);
+               
+               var examName = document.getElementById("examName").innerHTML=xmlhttp.responseText;
+            }
+         </script>
          </div>
          <!-- /.content-wrapper -->
          <?php include('includes/footer.php'); ?>

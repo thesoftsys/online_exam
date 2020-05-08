@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.9.0.1
+-- version 5.0.1
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Generation Time: May 05, 2020 at 07:23 PM
--- Server version: 10.3.16-MariaDB
--- PHP Version: 7.1.30
+-- Host: localhost
+-- Generation Time: May 08, 2020 at 06:35 PM
+-- Server version: 10.4.11-MariaDB
+-- PHP Version: 7.4.2
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -38,9 +38,8 @@ CREATE TABLE `add_course` (
 --
 
 INSERT INTO `add_course` (`id`, `cname`) VALUES
-(5, '.Net Development'),
-(6, 'Java Programming'),
-(7, 'Python Programming');
+(11, 'Java'),
+(12, 'Php');
 
 -- --------------------------------------------------------
 
@@ -50,12 +49,12 @@ INSERT INTO `add_course` (`id`, `cname`) VALUES
 
 CREATE TABLE `add_new_exam` (
   `id` int(10) NOT NULL,
+  `cname` varchar(250) NOT NULL,
   `ename` varchar(250) NOT NULL,
-  `ccode` varchar(250) NOT NULL,
   `nquestion` varchar(250) NOT NULL,
-  `time` varchar(250) NOT NULL,
+  `exam_time` varchar(250) NOT NULL,
   `pmax` varchar(250) NOT NULL,
-  `status` varchar(250) NOT NULL,
+  `status` varchar(250) NOT NULL DEFAULT '0',
   `equestionm` varchar(250) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -63,9 +62,12 @@ CREATE TABLE `add_new_exam` (
 -- Dumping data for table `add_new_exam`
 --
 
-INSERT INTO `add_new_exam` (`id`, `ename`, `ccode`, `nquestion`, `time`, `pmax`, `status`, `equestionm`) VALUES
-(9, 'First Exam1', 'HFJKL', '500', '14:22', '50', '', '20'),
-(10, 'dgfhjkl', 'c53235', '56', '17:02', '50', '', '20');
+INSERT INTO `add_new_exam` (`id`, `cname`, `ename`, `nquestion`, `exam_time`, `pmax`, `status`, `equestionm`) VALUES
+(13, 'Java', 'Level 1', '10', '30 Min', '1', '0', '1'),
+(14, 'Java', 'Level 2', '20', '30 Min', '1', '0', '1'),
+(15, 'Java', 'Level 3', '20', '30 Min', '1', '0', '1'),
+(16, 'Php', 'Level 1', '100', '30 Min', '1', '0', '1'),
+(17, 'Php', 'Level 2', '20', '30 Min', '1', '0', '1');
 
 -- --------------------------------------------------------
 
@@ -75,9 +77,9 @@ INSERT INTO `add_new_exam` (`id`, `ename`, `ccode`, `nquestion`, `time`, `pmax`,
 
 CREATE TABLE `add_questions` (
   `id` int(10) NOT NULL,
-  `cname` varchar(250) NOT NULL,
-  `ename` varchar(250) NOT NULL,
-  `question` varchar(250) NOT NULL,
+  `question_no` varchar(250) NOT NULL,
+  `exam_id` varchar(250) NOT NULL,
+  `question` varchar(500) NOT NULL,
   `option_one` varchar(250) NOT NULL,
   `option_two` varchar(250) NOT NULL,
   `option_three` varchar(250) NOT NULL,
@@ -89,9 +91,8 @@ CREATE TABLE `add_questions` (
 -- Dumping data for table `add_questions`
 --
 
-INSERT INTO `add_questions` (`id`, `cname`, `ename`, `question`, `option_one`, `option_two`, `option_three`, `option_four`, `right_option`) VALUES
-(7, '.Net Development', 'First Exam1', 'full form of cdma', 'code division multiple apply', 'core diver m acess', 'core driver multi approch', 'core division multiple access', 'code division multiple access'),
-(8, 'Python Programming', 'dgfhjkl', 'xhgjkl', 'vhjkl', 'hgjkl;', 'vbn', 'dfghjkl', 'fghjkl;');
+INSERT INTO `add_questions` (`id`, `question_no`, `exam_id`, `question`, `option_one`, `option_two`, `option_three`, `option_four`, `right_option`) VALUES
+(13, '1', '16', '1st ques', 'ans1', 'ans2', 'ans3', 'ans4', 'ans1');
 
 -- --------------------------------------------------------
 
@@ -213,19 +214,19 @@ ALTER TABLE `student_login`
 -- AUTO_INCREMENT for table `add_course`
 --
 ALTER TABLE `add_course`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `add_new_exam`
 --
 ALTER TABLE `add_new_exam`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT for table `add_questions`
 --
 ALTER TABLE `add_questions`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT for table `exam_admin`

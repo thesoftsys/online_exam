@@ -2,6 +2,7 @@
       include('includes/header.php');
       include('includes/sidebar.php');
       include('includes/connection.php');
+      
       $sel = "SELECT * FROM add_course";
       $query = mysqli_query($db,$sel);
 
@@ -81,7 +82,7 @@
                                  <input type="number" class="form-control" name="equestionm"  placeholder="Enter Each Question Max" required>
                               </div>
                               <div class="">
-                                 <button class="btn btn-success">Save</button>
+                                 <input type="submit"  name="submit" class="btn btn-success"/>
                               </div>
                            </form>
                         </div>
