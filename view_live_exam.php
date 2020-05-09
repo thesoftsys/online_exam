@@ -156,7 +156,7 @@
                                        </div>
                                        <div class="col-md-12 form-group user-form-group">
                                           <div class="pull-right">
-                                             <button type="button" class="btn btn-danger btn-sm">Cancel</button>
+                                             <button type="button" class="btn btn-danger btn-sm" data-dismiss="modal">Cancel</button>
                                              <input type="submit" name="submit" class="btn btn-add btn-sm"/>
                                           </div>
                                        </div>
