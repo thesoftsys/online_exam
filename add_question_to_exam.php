@@ -6,14 +6,19 @@
       include('includes/connection.php');
 
       extract($_GET);
-      $sel = "SELECT * FROM add_new_exam WHERE cname = '$cname' AND ename = '$ename'";
+
+    //   echo $cname;
+      
+      $sel = "SELECT add_new_exam.ename, add_course.cname  FROM add_course JOIN add_new_exam WHERE add_course.id = $cname";
       $query = mysqli_query($db,$sel);
       $courseAndExamName = mysqli_fetch_array($query);
-      $examId = $courseAndExamName['id'];
-    
-      
-      
 
+      $selExamId = mysqli_query($db,"SELECT * FROM add_new_exam WHERE course_id = '$cname' AND ename = '$ename'");
+      
+      $examIdResult = mysqli_fetch_array($selExamId,MYSQLI_BOTH);
+      
+      $examId = $examIdResult['id'];
+  
       ?>
          <!-- =============================================== -->
          <!-- Content Wrapper. Contains page content -->
@@ -24,7 +29,7 @@
                   <i class="fa fa-users"></i>
                </div>
                <div class="header-title">
-                  <h1>Add Questions To Exam</h1>
+                  <h1>Add Questions To Exam  </h1>
                   
                </div>
             </section>
@@ -55,7 +60,7 @@
                                         
                                         <div class="form-group">
                                             <label>Exam Name</label>
-                                            <input type="text"  value="<?php echo $courseAndExamName['ename'];?>" readonly class="form-control">
+                                            <input type="text"  value="<?php echo $ename ?>" readonly class="form-control">
                                         </div>
                                    </div>
 

@@ -46,7 +46,7 @@
                                     while($row = mysqli_fetch_array($query,MYSQLI_BOTH))
                                     {
                                     ?>
-                                    <option><?php echo $row['cname'];?></option>
+                                    <option value="<?php echo $row['id'];?>" ><?php echo $row['cname'];?></option>
                                     <?php } ?> 
                                  </select>
                                    
@@ -77,11 +77,12 @@
             function selectCourse()
             {
                var xmlhttp = new XMLHttpRequest();
-               var courseName = document.getElementById("courseName").value;
+               var courseId = document.getElementById("courseName").value;
                
-               xmlhttp.open("GET","forajax/getExam.php?courseName="+courseName,false);
+               xmlhttp.open("GET","forajax/getExam.php?courseId="+courseId,false);
                xmlhttp.send(null);
                
+              
                var examName = document.getElementById("examName").innerHTML=xmlhttp.responseText;
             }
          </script>

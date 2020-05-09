@@ -206,17 +206,22 @@
 		case 11:
 				//Admin Manage Exam (Add New Exam) Insert Data in add_new_exam table;
 				extract($_POST);
+				$getExamId = mysqli_query($db,"SELECT * FROM add_course WHERE id = '$cid'");
+				$examId = mysqli_fetch_array($getExamId);
+				$result = $examId['id'];
+				
+				
 
 				if(isset($_POST['submit']))
 				{	
-					if(mysqli_num_rows(mysqli_query($db,"SELECT *FROM add_new_exam WHERE cname = '$cname' AND ename = '$ename' ")) > 0)
+					if(mysqli_num_rows(mysqli_query($db,"SELECT *FROM add_new_exam WHERE course_id = '$cid' AND ename = '$ename' ")) > 0)
 					{
 						echo "<script>alert('Exam Name And Course Name  Exist');location.href='add_new_exam.php'</script>";
 					}
 				else
 				{
 				
-					$ins = "INSERT INTO add_new_exam (cname,ename,nquestion,exam_time,pmax,equestionm) VALUES('$cname','$ename','$nquestion','$time','$pmax','$equestionm')";
+					$ins = "INSERT INTO add_new_exam (course_id,ename,nquestion,exam_time,pmax,equestionm) VALUES('$result','$ename','$nquestion','$time','$pmax','$equestionm')";
 					$query = mysqli_query($db,$ins);
 					if($query)
 					{
@@ -284,12 +289,10 @@
 			case 15:
 					//Admin Update add_new_exam;
 				extract($_POST);
-				$id = $_REQUEST['id'];
-				$sel = "SELECT * FROM add_questions WHERE id = '$id'";
-				$query = mysqli_query($db,$sel);
-				$row = mysqli_fetch_array($query,MYSQLI_BOTH);
+				$uid = $_REQUEST['uid'];
+				
 
-				$update = "UPDATE add_questions SET cname = '$cname', question= '$question', option_one = '$option_one', option_two = '$option_two', option_three = '$option_three', option_four = '$option_four', right_option = '$right_option' WHERE id = '$id' ";
+				$update = "UPDATE add_questions SET  question= '$question', option_one = '$option_one', option_two = '$option_two', option_three = '$option_three', option_four = '$option_four', right_option = '$right_option' WHERE id = '$uid' ";
 				$query= mysqli_query($db,$update);
 
 				if($query)
@@ -301,10 +304,7 @@
 
 		case 16:
 			$delid = $_REQUEST['delid'];
-			$sel = "SELECT * FROM add_questions WHERE id= '$delid'";
-    		$selquery = mysqli_query($db,$sel);
-    		$row = mysqli_fetch_array($selquery,MYSQLI_BOTH);
-
+		
     		$del = "DELETE FROM add_questions WHERE id='$delid'";
     		$query =mysqli_query($db,$del);
     		if($query)
@@ -328,19 +328,28 @@
 		case 18:
 				//Admin update view live exam
 				extract($_POST);
-				$id = $_REQUEST['id'];
-				$sel = "SELECT * FROM add_new_exam WHERE id = '$id'";
-				$query = mysqli_query($db,$sel);
-				$row = mysqli_fetch_array($query,MYSQLI_BOTH);
-
-				$update = "UPDATE add_new_exam SET ename = '$ename', ccode= '$ccode', nquestion = '$nquestion', time = '$time', pmax = '$pmax', equestionm = '$equestionm' WHERE id = '$id' ";
-				$query= mysqli_query($db,$update);
-
-				if($query)
+				$uid = $_REQUEST['uid'];
+				if(isset($submit))
 				{
+					if(mysqli_num_rows(mysqli_query($db,"SELECT *FROM add_new_exam WHERE course_id = '$cid' AND ename = '$ename'"))>0)
+					{
+						echo "<script>alert('Course And Exam Name Exist');location.href='view_live_exam.php'</script>";
+					}
+					else
+					{
+						$update = "UPDATE add_new_exam SET ename= '$ename', nquestion = '$nquestion', exam_time = '$time', pmax = '$pmax', equestionm = '$equestionm' WHERE id = '$uid' ";
+						$query= mysqli_query($db,$update);
 
-				echo "<script>alert('Live Exam Successfully Updated');location.href='view_live_exam.php'</script>";
+						if($query)
+						{
+
+							echo "<script>alert('Live Exam Successfully Updated');location.href='view_live_exam.php'</script>";
+						}
+					}
+				
 				}
+
+				
 		break;
 
 		case 19:	

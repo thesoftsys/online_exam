@@ -2,9 +2,9 @@
 
 include('../includes/connection.php');
 
-$courseName = $_GET['courseName'];
+$courseId = $_GET['courseId'];
 
-$query = mysqli_query($db,"SELECT * FROM add_new_exam WHERE cname = '$courseName'");
+$query = mysqli_query($db,"SELECT * FROM add_new_exam WHERE course_id = '$courseId'");
 
 
 while($row = mysqli_fetch_array($query))

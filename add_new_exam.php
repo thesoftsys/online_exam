@@ -39,12 +39,13 @@
                                  
                                  <label>Select Course Name</label>
 
-                                 <select class="form-control" name="cname">
+                                 <select class="form-control" name="cid">
                                     <?php 
                                     while($row = mysqli_fetch_array($query,MYSQLI_BOTH))
                                     {
                                     ?>
-                                    <option><?php echo $row['cname'];?></option>
+                                    <option value="<?php echo $row['id']; ?>" ><?php echo $row['cname'];?></option>
+                                    
                                     <?php } ?> 
                                  </select>
                                    

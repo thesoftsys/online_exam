@@ -5,6 +5,7 @@
       $sel = "SELECT * FROM add_questions";
       $query = mysqli_query($db,$sel);
       
+      
 
       ?>
          <!-- =============================================== -->
@@ -66,16 +67,26 @@
                                        <th>Action</th>
                                     </tr>
                                  </thead>
+                                 <tbody>
                                     <?php 
                                     $sr = 1;
                                     while($row = mysqli_fetch_array($query,MYSQLI_BOTH))
                                     {
+                                       $examId = $row['exam_id'];
+                                       $selExam = mysqli_query($db,"SELECT *FROM add_new_exam WHERE id ='$examId'");
+                                       while($getExam = mysqli_fetch_array($selExam,MYSQLI_BOTH))
+                                       {
+                                          $courseId = $getExam['course_id'];
+                                          $selCourse = mysqli_query($db,"SELECT *FROM add_course WHERE id = '$courseId'");
+                                          while($getCourse = mysqli_fetch_array($selCourse,MYSQLI_BOTH))
+                                          {
+
                                     ?>
-                                 <tbody>
+                                 
                                     <tr>
-                                       <td><?php echo $sr++; ?></td>
-                                       <td><?php echo $row['cname']; ?></td>
-                                       <td><?php echo $row['ename']; ?></td>
+                                       <td><?php echo $sr; ?></td>
+                                       <td><?php echo $getCourse['cname'] ?></td>
+                                       <td><?php echo $getExam['ename']; ?></td>
                                        <td><?php echo $row['question']; ?></td>
                                        <td><?php echo $row['option_one']; ?></td>
                                        <td><?php echo $row['option_two']; ?></td>
@@ -85,10 +96,12 @@
                                        <td>
                                           <button type="button" class="btn btn-add btn-sm" data-toggle="modal" data-target="#<?php echo $row ['id'];?>"><i class="fa fa-pencil"></i></b
                                              utton>
-                                          <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#customer2"><i class="fa fa-trash-o"></i> </button>
+                                          <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#customer2<?php echo $row['id'] ?>"><i class="fa fa-trash-o"></i> </button>
                                        </td>
                                     </tr>
-                                    <div class="modal fade" id="<?php echo $row['id']; ?>" tabindex="-1" role="dialog" aria-hidden="true">
+
+
+               <div class="modal fade" id="<?php echo $row['id']; ?>" tabindex="-1" role="dialog" aria-hidden="true">
                   <div class="modal-dialog">
                      <div class="modal-content">
                         <div class="modal-header modal-header-primary">
@@ -98,16 +111,16 @@
                         <div class="modal-body">
                            <div class="row">
                               <div class="col-md-12">
-                                 <form class="form-horizontal" action="code.php?flag=15&id=<?php echo $row['id']; ?>" method="post">
+                                 <form class="form-horizontal" action="code.php?flag=15&uid=<?php echo $row['id']; ?>" method="post">
                                     <fieldset>
                                        <div class="col-md-6 form-group">
                                           <label class="control-label">Course Name:</label>
-                                          <input type="text" value="<?php echo $row['cname']; ?>" name ="cname" placeholder="Enter Course Name"  class="form-control">
+                                          <input type="text" value="<?php echo $getCourse['cname'] ?>" readonly  class="form-control">
                                        </div>
                                        <!-- Text input-->
                                        <div class="col-md-6 form-group">
                                           <label class="control-label">Exam Name:</label>
-                                          <input type="text" value="<?php echo $row['ename']; ?>" name ="ename" placeholder="Exam Name" class="form-control">
+                                          <input type="text" value="<?php echo $getExam['ename'] ?>" readonly class="form-control">
                                        </div>
                                        <!-- Text input-->
                                        <div class="col-md-6 form-group">
@@ -137,7 +150,7 @@
 
                                        <div class="col-md-12 form-group user-form-group">
                                           <div class="pull-right">
-                                             <button type="button" class="btn btn-danger btn-sm">Cancel</button>
+                                             <button type="button" data-dismiss="modal"  class="btn btn-danger btn-sm">Cancel</button>
                                              <button type="submit" class="btn btn-add btn-sm">Update</button>
                                           </div>
                                        </div>
@@ -155,34 +168,15 @@
                   </div>
                   <!-- /.modal-dialog -->
                </div>
-                                    <?php } ?>
-                                 </tbody>
-                              </table>
-                           </div>
-                        </div>
-                     </div>
-                  </div>
-               </div>
-               <!-- customer Modal1 -->
-
-               <?php
-               $sel = "SELECT * FROM add_questions";
-               $query = mysqli_query($db,$sel);
-               $row = mysqli_fetch_array($query,MYSQLI_BOTH);
-
-
-               ?>
-
-
-               <!-- /.modal -->
+                <!-- /.modal -->
                <!-- Modal -->    
                <!-- Customer Modal2 -->
-               <div class="modal fade" id="customer2" tabindex="-1" role="dialog" aria-hidden="true">
+               <div class="modal fade" id="customer2<?php echo $row['id'] ?>" tabindex="-1" role="dialog" aria-hidden="true">
                   <div class="modal-dialog">
                      <div class="modal-content">
                         <div class="modal-header modal-header-primary">
                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                           <h3><i class="fa fa-user m-r-5"></i> Delete Questions Data</h3>
+                           <h3><i class="fa fa-user m-r-5"></i> Delete Questions Data </h3>
                         </div>
                         <div class="modal-body">
                            <div class="row">
@@ -190,9 +184,9 @@
                                  <form class="form-horizontal" action="code.php?flag=16&delid=<?php echo $row ['id']; ?>" method="post">
                                     <fieldset>
                                        <div class="col-md-12 form-group user-form-group">
-                                          <label class="control-label">Delete Questions Data</label>
+                                          <label class="control-label">Delete Questions Data  </label>
                                           <div class="pull-right">
-                                             <button type="button" class="btn btn-danger btn-sm">NO</button>
+                                             <button type="button" data-dismiss="modal"  class="btn btn-danger btn-sm">NO</button>
                                              <button type="submit" class="btn btn-add btn-sm">YES</button>
                                           </div>
                                        </div>
@@ -210,6 +204,26 @@
                   <!-- /.modal-dialog -->
                </div>
                <!-- /.modal -->
+               
+                                    <?php 
+                                    $sr++;
+                                    }
+                                 }
+                                 } 
+                                 ?>
+                                 </tbody>
+                              </table>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+               <!-- customer Modal1 -->
+
+            
+
+
+              
             </section>
             <!-- /.content -->
          </div>

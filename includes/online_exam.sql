@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: May 08, 2020 at 06:35 PM
+-- Generation Time: May 09, 2020 at 01:00 PM
 -- Server version: 10.4.11-MariaDB
 -- PHP Version: 7.4.2
 
@@ -38,8 +38,8 @@ CREATE TABLE `add_course` (
 --
 
 INSERT INTO `add_course` (`id`, `cname`) VALUES
-(11, 'Java'),
-(12, 'Php');
+(14, 'PHP'),
+(15, 'Java');
 
 -- --------------------------------------------------------
 
@@ -49,7 +49,7 @@ INSERT INTO `add_course` (`id`, `cname`) VALUES
 
 CREATE TABLE `add_new_exam` (
   `id` int(10) NOT NULL,
-  `cname` varchar(250) NOT NULL,
+  `course_id` varchar(250) NOT NULL,
   `ename` varchar(250) NOT NULL,
   `nquestion` varchar(250) NOT NULL,
   `exam_time` varchar(250) NOT NULL,
@@ -62,12 +62,8 @@ CREATE TABLE `add_new_exam` (
 -- Dumping data for table `add_new_exam`
 --
 
-INSERT INTO `add_new_exam` (`id`, `cname`, `ename`, `nquestion`, `exam_time`, `pmax`, `status`, `equestionm`) VALUES
-(13, 'Java', 'Level 1', '10', '30 Min', '1', '0', '1'),
-(14, 'Java', 'Level 2', '20', '30 Min', '1', '0', '1'),
-(15, 'Java', 'Level 3', '20', '30 Min', '1', '0', '1'),
-(16, 'Php', 'Level 1', '100', '30 Min', '1', '0', '1'),
-(17, 'Php', 'Level 2', '20', '30 Min', '1', '0', '1');
+INSERT INTO `add_new_exam` (`id`, `course_id`, `ename`, `nquestion`, `exam_time`, `pmax`, `status`, `equestionm`) VALUES
+(28, '14', 'Level 2', '1', '30 Min', '1', '0', '2');
 
 -- --------------------------------------------------------
 
@@ -92,7 +88,7 @@ CREATE TABLE `add_questions` (
 --
 
 INSERT INTO `add_questions` (`id`, `question_no`, `exam_id`, `question`, `option_one`, `option_two`, `option_three`, `option_four`, `right_option`) VALUES
-(13, '1', '16', '1st ques', 'ans1', 'ans2', 'ans3', 'ans4', 'ans1');
+(58, '2', '27', 'second', 'a', 'b', 'c', 'd', 'a');
 
 -- --------------------------------------------------------
 
@@ -214,19 +210,19 @@ ALTER TABLE `student_login`
 -- AUTO_INCREMENT for table `add_course`
 --
 ALTER TABLE `add_course`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT for table `add_new_exam`
 --
 ALTER TABLE `add_new_exam`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
 
 --
 -- AUTO_INCREMENT for table `add_questions`
 --
 ALTER TABLE `add_questions`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=59;
 
 --
 -- AUTO_INCREMENT for table `exam_admin`

@@ -68,15 +68,20 @@
                                  <?php 
                                     $sr = 1;
                                     while( $row = mysqli_fetch_array($query,MYSQLI_BOTH))
-                                       
                                     {
+                                       $courseId = $row['course_id'];
+                                       $selExamName = mysqli_query($db,"SELECT * FROM add_course WHERE id = '$courseId'");
+                                       while($getExamName = mysqli_fetch_array($selExamName,MYSQLI_BOTH))
+                                       {
+                                          
+                                     
 
                                  ?>
                                  <tbody>
                                     <tr>
                                        
                                        <td><?php echo $sr++;?></td>
-                                       <td><?php echo $row['cname']; ?></td>
+                                       <td><?php echo $getExamName['cname'] ?></td>
                                        <td><?php echo $row['ename']; ?></td>
                                        <td><?php echo $row['nquestion']; ?></td>
                                        <td><?php echo $row['exam_time']; ?></td>
@@ -101,7 +106,7 @@
                                        </td>
                                     </tr>
 
-                                    <div class="modal fade" id="<?php echo $row['id']; ?>" tabindex="-1" role="dialog" aria-hidden="true">
+               <div class="modal fade" id="<?php echo $row['id']; ?>" tabindex="-1" role="dialog" aria-hidden="true">
                   <div class="modal-dialog">
                      <div class="modal-content">
                         <div class="modal-header modal-header-primary">
@@ -111,17 +116,18 @@
                         <div class="modal-body">
                            <div class="row">
                               <div class="col-md-12">
-                                 <form class="form-horizontal" action="code.php?flag=18&id=<?php echo $row['id']; ?>" method="post">
+                                 <form class="form-horizontal" action="code.php?flag=18&uid=<?php echo $row['id']; ?>" method="post">
                                     <fieldset>
                                        <!-- Text input-->
                                     <div class="col-md-6 form-group">
                                           <label class="control-label">Course Name:</label>
-                                          <input type="text" name="ename" placeholder="Enter Exam Name" value="<?php echo $row['cname']; ?>" class="form-control">
+                                          <input type="hidden" name="cid" value="<?php echo $courseId; ?>" >
+                                          <input type="text"  placeholder="Enter Exam Name" readonly value="<?php echo $getExamName['cname'] ?>" class="form-control">
                                        </div>
 
                                        <div class="col-md-6 form-group">
                                           <label class="control-label">Exam Name:</label>
-                                          <input type="text" name="ccode" placeholder="Enter Course Name" value="<?php echo $row['ename']; ?>" class="form-control">
+                                          <input type="text" name="ename" placeholder="Enter Course Name" value="<?php echo $row['ename']; ?>" class="form-control">
                                        </div>
                                        <!-- Text input-->
                                        <div class="col-md-6 form-group">
@@ -131,7 +137,14 @@
                                        <!-- Text input-->
                                        <div class="col-md-6 form-group">
                                           <label class="control-label">Time</label>
-                                          <input type="time" class="form-control" name="time" value="<?php echo $row['time']; ?>">
+                                          <select class="form-control" name="time">
+                                    
+                                             <option>30 Min</option>
+                                             <option>60 Min</option>
+                                             <option>90 Min</option>
+                                             <option>120 Min</option>
+                                          
+                                          </select>
                                        </div>
                                        <div class="col-md-6 form-group">
                                           <label class="control-label">Passing Max</label><br>
@@ -144,7 +157,7 @@
                                        <div class="col-md-12 form-group user-form-group">
                                           <div class="pull-right">
                                              <button type="button" class="btn btn-danger btn-sm">Cancel</button>
-                                             <button type="submit" class="btn btn-add btn-sm">Save Change</button>
+                                             <input type="submit" name="submit" class="btn btn-add btn-sm"/>
                                           </div>
                                        </div>
                                     </fieldset>
@@ -161,7 +174,11 @@
                   <!-- /.modal-dialog -->
                </div>
 
-                                    <?php } ?>
+                                    <?php 
+                                    }
+                                 } 
+                                 
+                                 ?>
                                  </tbody>
                               </table>
                            </div>
