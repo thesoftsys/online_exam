@@ -73,9 +73,9 @@
                      </span>
                      </a>
                      <ul class="treeview-menu">
-                        <li><a href="rtask.html">All Students</a></li>
-                        <li><a href="atask.html">Pass Students</a></li>
-                        <li><a href="atask.html">Fail Students</a></li>
+                        <li><a href="all_students.php">All Students</a></li>
+                        <li><a href="pass_students.php">Pass Students</a></li>
+                        <li><a href="fail_students.php">Fail Students</a></li>
                      </ul>
                   </li>
                   <li class="treeview">
@@ -86,9 +86,9 @@
                      </span>
                      </a>
                      <ul class="treeview-menu">
-                        <li><a href="cpayment.html">New</a></li>
-                        <li><a href="emanage.html">Pending</a></li>
-                        <li><a href="ecategory.html">Resolved</a></li>
+                        <li><a href="new_complains.php">New</a></li>
+                        <li><a href="pending_complains.php">Pending</a></li>
+                        <li><a href="resolved_complains.php">Resolved</a></li>
                      </ul>
                   </li>
                  
