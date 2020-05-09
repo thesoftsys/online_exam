@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: May 09, 2020 at 01:00 PM
+-- Generation Time: May 09, 2020 at 07:58 PM
 -- Server version: 10.4.11-MariaDB
 -- PHP Version: 7.4.2
 
@@ -38,7 +38,7 @@ CREATE TABLE `add_course` (
 --
 
 INSERT INTO `add_course` (`id`, `cname`) VALUES
-(14, 'PHP'),
+(14, 'PHP Jaa'),
 (15, 'Java');
 
 -- --------------------------------------------------------
@@ -88,7 +88,8 @@ CREATE TABLE `add_questions` (
 --
 
 INSERT INTO `add_questions` (`id`, `question_no`, `exam_id`, `question`, `option_one`, `option_two`, `option_three`, `option_four`, `right_option`) VALUES
-(58, '2', '27', 'second', 'a', 'b', 'c', 'd', 'a');
+(59, '1', '28', 'ques', 'a', 'b', 'c', 'd', 'a'),
+(60, '2', '28', 'qus2', 'a', 'b', 'c', 'd', 'a');
 
 -- --------------------------------------------------------
 
@@ -222,7 +223,7 @@ ALTER TABLE `add_new_exam`
 -- AUTO_INCREMENT for table `add_questions`
 --
 ALTER TABLE `add_questions`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=59;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=61;
 
 --
 -- AUTO_INCREMENT for table `exam_admin`
