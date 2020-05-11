@@ -171,18 +171,28 @@
 				//Update  Courses Admin
 				extract($_POST);
 				$id = $_REQUEST['id'];
-				$sel = "SELECT * FROM add_course WHERE id = '$id'";
-				$query = mysqli_query($db,$sel);
-				$row = mysqli_fetch_array($query,MYSQLI_BOTH);
 
-				$update = "UPDATE add_course SET cname = '$cname' WHERE id = '$id' ";
-				$query= mysqli_query($db,$update);
-
-				if($query)
+				if(isset($submit))
 				{
+					if(mysqli_num_rows(mysqli_query($db,"SELECT *FROM add_course WHERE cname = '$cname' AND NOT id = '$id' ")) > 0)
+					{
+						echo "<script>alert('Course Name Exist');location.href='view_course.php'</script>";
+					}
+					else
+					{
+						$update = "UPDATE add_course SET cname = '$cname' WHERE id = '$id' ";
+						$query= mysqli_query($db,$update);
 
-				echo "<script>alert('Our Course Successfully Updated');location.href='view_course.php'</script>";
+						if($query)
+						{
+
+							echo "<script>alert('Live Exam Successfully Updated');location.href='view_course.php'</script>";
+						}
+					}
+				
 				}
+
+			
 				
 		break;
 
@@ -331,7 +341,7 @@
 				$uid = $_REQUEST['uid'];
 				if(isset($submit))
 				{
-					if(mysqli_num_rows(mysqli_query($db,"SELECT *FROM add_new_exam WHERE course_id = '$cid' AND ename = '$ename'"))>0)
+					if(mysqli_num_rows(mysqli_query($db,"SELECT *FROM add_new_exam WHERE course_id = '$cid' AND ename = '$ename' AND NOT id = '$uid' ")) > 0)
 					{
 						echo "<script>alert('Course And Exam Name Exist');location.href='view_live_exam.php'</script>";
 					}

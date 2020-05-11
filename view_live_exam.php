@@ -2,7 +2,7 @@
       include('includes/header.php');
       include('includes/sidebar.php');
       include('includes/connection.php');
-      $sel = "SELECT * FROM add_new_exam";
+      $sel = "SELECT * FROM add_new_exam ORDER BY id DESC";
       $query = mysqli_query($db,$sel);
      
 
@@ -84,7 +84,7 @@
                                        <td><?php echo $getExamName['cname'] ?></td>
                                        <td><?php echo $row['ename']; ?></td>
                                        <td><?php echo $row['nquestion']; ?></td>
-                                       <td><?php echo $row['exam_time']; ?></td>
+                                       <td><?php echo $row['exam_time']; ?> Min</td>
                                        <td><?php echo $row['pmax']; ?></td>
                                        <td><?php echo $row['equestionm']; ?></td>
                                        <td>
@@ -102,7 +102,7 @@
                                        </td>
                                        <td>
                                           <button type="button" class="btn btn-add btn-sm" data-toggle="modal" data-target="#<?php echo $row['id'] ?>"><i class="fa fa-pencil"></i></button>
-                                          <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#customer2"><i class="fa fa-trash-o"></i> </button>
+                                          <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#customer2<?php echo $row['id'] ?>"><i class="fa fa-trash-o"></i> </button>
                                        </td>
                                     </tr>
 
@@ -122,27 +122,27 @@
                                     <div class="col-md-6 form-group">
                                           <label class="control-label">Course Name:</label>
                                           <input type="hidden" name="cid" value="<?php echo $courseId; ?>" >
-                                          <input type="text"  placeholder="Enter Exam Name" readonly value="<?php echo $getExamName['cname'] ?>" class="form-control">
+                                          <input type="text"   readonly value="<?php echo $getExamName['cname'] ?>" class="form-control">
                                        </div>
 
                                        <div class="col-md-6 form-group">
                                           <label class="control-label">Exam Name:</label>
-                                          <input type="text" name="ename" placeholder="Enter Course Name" value="<?php echo $row['ename']; ?>" class="form-control">
+                                          <input type="text" name="ename" placeholder="Enter Exam Name" value="<?php echo $row['ename']; ?>" class="form-control">
                                        </div>
                                        <!-- Text input-->
                                        <div class="col-md-6 form-group">
                                           <label class="control-label">Number of Questions:</label>
-                                          <input type="number" name="nquestion" placeholder="Enter Number of Course" value="<?php echo $row['nquestion']; ?>" class="form-control">
+                                          <input type="number" name="nquestion" placeholder="Enter Number Of Questions" value="<?php echo $row['nquestion']; ?>" class="form-control">
                                        </div>
                                        <!-- Text input-->
                                        <div class="col-md-6 form-group">
                                           <label class="control-label">Time</label>
                                           <select class="form-control" name="time">
-                                    
-                                             <option>30 Min</option>
-                                             <option>60 Min</option>
-                                             <option>90 Min</option>
-                                             <option>120 Min</option>
+
+                                          <option value="30" >30 Min</option>
+                                          <option value="60" >60 Min</option>
+                                          <option value="90" >90 Min</option>
+                                          <option value="120" >120 Min</option>
                                           
                                           </select>
                                        </div>
@@ -174,34 +174,12 @@
                   <!-- /.modal-dialog -->
                </div>
 
-                                    <?php 
-                                    }
-                                 } 
-                                 
-                                 ?>
-                                 </tbody>
-                              </table>
-                           </div>
-                        </div>
-                     </div>
-                  </div>
-               </div>
-               <!-- customer Modal1 -->
-               <?php 
-               $sel = "SELECT * FROM add_new_exam";
-               $query = mysqli_query($db,$sel);
-               $row = mysqli_fetch_array($query,MYSQLI_BOTH);
-               ?>
-              
-               
-            </section>
-            <!-- /.content -->
-             <div class="modal fade" id="customer2" tabindex="-1" role="dialog" aria-hidden="true">
+               <div class="modal fade" id="customer2<?php echo $row['id'] ?>" tabindex="-1" role="dialog" aria-hidden="true">
                   <div class="modal-dialog">
                      <div class="modal-content">
                         <div class="modal-header modal-header-primary">
                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                           <h3><i class="fa fa-user m-r-5"></i> Delete Questions Data</h3>
+                           <h3><i class="fa fa-user m-r-5"></i> Delete Questions Data </h3>
                         </div>
                         <div class="modal-body">
                            <div class="row">
@@ -228,6 +206,26 @@
                   </div>
                   <!-- /.modal-dialog -->
                </div>
+
+                                    <?php 
+                                    }
+                                 } 
+                                 
+                                 ?>
+                                 </tbody>
+                              </table>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+               <!-- customer Modal1 -->
+             
+              
+               
+            </section>
+            <!-- /.content -->
+             
          </div>
 
          <?php include('includes/footer.php'); ?>

@@ -66,10 +66,10 @@
 
                                  <select class="form-control" name="time">
                                     
-                                    <option>30 Min</option>
-                                    <option>60 Min</option>
-                                    <option>90 Min</option>
-                                    <option>120 Min</option>
+                                    <option value="30" >30 Min</option>
+                                    <option value="60" >60 Min</option>
+                                    <option value="90" >90 Min</option>
+                                    <option value="120" >120 Min</option>
                                      
                                  </select>
                                    

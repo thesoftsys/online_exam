@@ -68,7 +68,7 @@
                                        <td><?php echo $row['cname']; ?></td>
                                        <td>
                                           <button type="button" class="btn btn-add btn-sm" data-toggle="modal" data-target="#<?php echo $row['id']; ?>"><i class="fa fa-pencil"></i></button>
-                                          <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#customer2"><i class="fa fa-trash-o"></i> </button>
+                                          <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#customer2<?php echo $row['id']; ?>"><i class="fa fa-trash-o"></i> </button>
                                        </td>
                                     </tr>
 
@@ -94,7 +94,7 @@
                                        <div class="col-md-12 form-group user-form-group">
                                           <div class="pull-right">
                                              <button type="button" class="btn btn-danger btn-sm">Cancel</button>
-                                             <button type="submit" class="btn btn-add btn-sm">Update</button>
+                                             <button type="submit" name="submit" class="btn btn-add btn-sm">Update</button>
                                           </div>
                                        </div>
                                     </fieldset>
@@ -110,28 +110,9 @@
                   </div>
                   <!-- /.modal-dialog -->
                </div>
-                                       <?php   
-                                       }
-                                       ?>
-                                 </tbody>
-                              </table>
-                           </div>
-                        </div>
-                     </div>
-                  </div>
-               </div>
-               <!-- customer Modal1 -->
-               <?php 
-                  include('includes/connection.php');
-                  $sel = "SELECT * FROM add_course";
-                  $query = mysqli_query($db,$sel);
-                  $row = mysqli_fetch_array($query,MYSQLI_BOTH);
-                ?>   
-               
-               <!-- /.modal -->
-               <!-- Modal -->    
-               <!-- Customer Modal2 -->
-               <div class="modal fade" id="customer2" tabindex="-1" role="dialog" aria-hidden="true">
+                  <!-- Delete Modal -->
+
+               <div class="modal fade" id="customer2<?php echo $row['id']; ?>" tabindex="-1" role="dialog" aria-hidden="true">
                   <div class="modal-dialog">
                      <div class="modal-content">
                         <div class="modal-header modal-header-primary">
@@ -163,6 +144,19 @@
                   </div>
                   <!-- /.modal-dialog -->
                </div>
+
+                                       <?php   
+                                       }
+                                       ?>
+                                 </tbody>
+                              </table>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+               <!-- customer Modal1 -->
+              
 
                <!-- /.modal -->
             </section>
