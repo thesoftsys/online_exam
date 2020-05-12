@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: May 09, 2020 at 07:58 PM
+-- Generation Time: May 12, 2020 at 07:15 PM
 -- Server version: 10.4.11-MariaDB
 -- PHP Version: 7.4.2
 
@@ -38,8 +38,8 @@ CREATE TABLE `add_course` (
 --
 
 INSERT INTO `add_course` (`id`, `cname`) VALUES
-(14, 'PHP Jaa'),
-(15, 'Java');
+(16, 'Php'),
+(17, 'Java');
 
 -- --------------------------------------------------------
 
@@ -63,7 +63,7 @@ CREATE TABLE `add_new_exam` (
 --
 
 INSERT INTO `add_new_exam` (`id`, `course_id`, `ename`, `nquestion`, `exam_time`, `pmax`, `status`, `equestionm`) VALUES
-(28, '14', 'Level 2', '1', '30 Min', '1', '0', '2');
+(37, '17', 'Level 1', '25', '30', '2', '1', '1');
 
 -- --------------------------------------------------------
 
@@ -88,8 +88,10 @@ CREATE TABLE `add_questions` (
 --
 
 INSERT INTO `add_questions` (`id`, `question_no`, `exam_id`, `question`, `option_one`, `option_two`, `option_three`, `option_four`, `right_option`) VALUES
-(59, '1', '28', 'ques', 'a', 'b', 'c', 'd', 'a'),
-(60, '2', '28', 'qus2', 'a', 'b', 'c', 'd', 'a');
+(66, '1', '37', '1st ', 'a', 'b', 'c', 'd', 'a'),
+(67, '2', '37', '2nd', 'a', 'praj', 'japati', 'adjhj', 'abhi'),
+(68, '3', '37', '3rd', 'nahi', 'hai', 'koi ', 'bhi', 'bhi'),
+(69, '4', '37', '4th', 'tech', 'abhishek', 'programmer', 'abhi', 'programmer');
 
 -- --------------------------------------------------------
 
@@ -111,6 +113,23 @@ CREATE TABLE `exam_admin` (
 
 INSERT INTO `exam_admin` (`id`, `email`, `password`, `admin`, `role`) VALUES
 (1, 'admin@gmail.com', 'admin', 'admin', '1');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `exam_result`
+--
+
+CREATE TABLE `exam_result` (
+  `id` int(5) NOT NULL,
+  `user_id` varchar(100) NOT NULL,
+  `exam_id` varchar(100) NOT NULL,
+  `total_question` varchar(100) NOT NULL,
+  `correct_answer` varchar(100) NOT NULL,
+  `wrong_answer` varchar(100) NOT NULL,
+  `exam_time` varchar(100) NOT NULL,
+  `percentage` varchar(100) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -192,6 +211,12 @@ ALTER TABLE `exam_admin`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `exam_result`
+--
+ALTER TABLE `exam_result`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `exam_student`
 --
 ALTER TABLE `exam_student`
@@ -211,25 +236,31 @@ ALTER TABLE `student_login`
 -- AUTO_INCREMENT for table `add_course`
 --
 ALTER TABLE `add_course`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT for table `add_new_exam`
 --
 ALTER TABLE `add_new_exam`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
 
 --
 -- AUTO_INCREMENT for table `add_questions`
 --
 ALTER TABLE `add_questions`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=61;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=70;
 
 --
 -- AUTO_INCREMENT for table `exam_admin`
 --
 ALTER TABLE `exam_admin`
   MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `exam_result`
+--
+ALTER TABLE `exam_result`
+  MODIFY `id` int(5) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `exam_student`

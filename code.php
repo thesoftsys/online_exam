@@ -119,7 +119,6 @@
                
                 session_start();
                 $_SESSION['user_id'] = $user_id;
-                $_SESSION['password'] = $row['password'];
                 $_SESSION['role'] = $row['role'];
 
 

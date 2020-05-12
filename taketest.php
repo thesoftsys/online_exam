@@ -76,7 +76,7 @@
                                      
                                     </tr>
 
-               
+                                             
 
                                     <?php 
                                     }
@@ -91,7 +91,7 @@
                   </div>
                </div>
                <!-- customer Modal1 -->
-              
+              <?php echo '<pre>' . print_r($_SESSION, TRUE) . '</pre>'; ?>
               
                
             </section>

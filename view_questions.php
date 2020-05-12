@@ -94,6 +94,7 @@
                                        <td><?php echo $row['option_four']; ?></td>
                                        <td><?php echo $row['right_option']; ?></td>
                                        <td>
+                                          
                                           <button type="button" class="btn btn-add btn-sm" data-toggle="modal" data-target="#<?php echo $row ['id'];?>"><i class="fa fa-pencil"></i></b
                                              utton>
                                           <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#customer2<?php echo $row['id'] ?>"><i class="fa fa-trash-o"></i> </button>
