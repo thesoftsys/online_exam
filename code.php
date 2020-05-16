@@ -365,16 +365,14 @@
 		//Admin Delete view live exam
 		
 		$delid = $_REQUEST['delid'];
-		$sel = "SELECT * FROM add_new_exam WHERE id= '$delid'";
-		$selquery = mysqli_query($db,$sel);
-		$row = mysqli_fetch_array($selquery,MYSQLI_BOTH);
+		
 
 		$del = "DELETE FROM add_new_exam WHERE id='$delid'";
 		$query =mysqli_query($db,$del);
 		if($query)
 		{
-
-		header("Location:view_live_exam.php");
+			$deleteAllQueFromExam = mysqli_query($db,"DELETE FROM add_questions WHERE exam_id = '$delid'");
+			header("Location:view_live_exam.php");
 		}
 
 		break;

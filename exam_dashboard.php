@@ -1,7 +1,10 @@
          <?php 
+     
+         
          include('includes/header.php');
          include('includes/sidebar.php');
          include('includes/connection.php');
+        
          
          ?>
 
@@ -48,7 +51,7 @@
                            <div class="text-center">
                            
                            <input type="button" class="btn btn-warning" value="Previous" onclick="load_previous();"> &nbsp;
-                           <input type="button" class="btn btn-success" value="Next" onclick="load_next();"> 
+                           <input type="button" id="examover" class="btn btn-success" value="Next" onclick="load_next();"> 
                            </div>
                            <br>
                        
@@ -70,9 +73,13 @@
          </div>
 
          <script>
+            var totalQue;
+
+
              setInterval(function(){
                 timer();
              },1000);
+             
            function timer()
             {
                var xmlhttp = new XMLHttpRequest();
@@ -117,7 +124,7 @@
                   if(xmlhttp.readyState == 4 && xmlhttp.status == 200)
                   {
                     document.getElementById("total_que").innerHTML = xmlhttp.responseText;
-                    
+                    totalQue = xmlhttp.responseText;
                      
                   }
                };
@@ -125,6 +132,8 @@
                xmlhttp.send(null); 
 
             }
+
+            
 
             var questionno = "1";
 
@@ -145,6 +154,15 @@
                     {
                         document.getElementById("load_questions").innerHTML=xmlhttp.responseText;
                         load_total_que();
+                        if(totalQue == questionno)
+                           {
+                              document.getElementById("examover").value = "Submit";
+                           
+                           }
+                           else
+                           {
+                              document.getElementById("examover").value = "Next";
+                           }
                     }
                      
                   }
@@ -152,6 +170,7 @@
                xmlhttp.open("GET","forajax/load_questions.php?questionsno="+questionno,true);
                xmlhttp.send(null); 
             }
+            
 
             function radioclick(radiovalue,questionno)
             {
@@ -170,6 +189,7 @@
                xmlhttp.send(null); 
 
             }
+            
 
             function load_previous()
             {
@@ -186,18 +206,31 @@
 
             function load_next()
             {
-              
-              
-
+               if(totalQue == questionno)
+               {
+                 
+                  window.location.href="result.php";
+               }
+               else
+               {
                   questionno = eval(questionno)+1;
                   load_questions(questionno);
+               }
+               // questionno = eval(questionno)+1;
+               //    load_questions(questionno);
+                  
                
             }
-
-
-
-
          </script>
-                           
+
+         <?php
+              if(empty($_SESSION["exam_start"]))
+               {
+                  echo "<script>location.href='taketest.php'</script>";
+               }
+         
+         ?>
+
+
 
        <?php include('includes/footer.php'); ?>

@@ -1,4 +1,6 @@
          <?php 
+
+         
          include('includes/header.php');
          include('includes/sidebar.php');
          include('includes/connection.php');
@@ -67,11 +69,18 @@
                                        <td><?php echo $getExamName['cname'] ?></td>
                                        <td><?php echo $row['ename']; ?></td>
                                        <td><?php echo $row['nquestion']; ?></td>
-                                       <td><?php echo $row['exam_time']; ?></td>
+                                       <td><?php echo $row['exam_time']; ?> Min</td>
                                        <td><?php echo $row['pmax']; ?></td>
                                        <td><?php echo $row['equestionm']; ?></td>
+                                      <?php 
+                                       $chkExam = mysqli_query($db,"SELECT * FROM exam_result WHERE exam_id = $row[id]");
+                                       if(mysqli_num_rows($chkExam) > 0)
+                                       {
+
+                                      ?>
+
                                        <td>
-                                         <input type="submit" value="Take Exam" class=" btn btn-sm btn-rounded btn-primary" onclick="set_exam_type_session(<?php echo $row['id'] ?>);"  >
+                                         <input type="submit" value="Completed" class=" btn btn-sm btn-rounded btn-success"  >
                                        </td>
                                      
                                     </tr>
@@ -79,6 +88,17 @@
                                              
 
                                     <?php 
+                                       }
+                                       else
+                                       {
+                                          ?>
+                                           <td>
+                                         <input type="submit" value="Take Exam" class=" btn btn-sm btn-rounded btn-primary" onclick="set_exam_type_session(<?php echo $row['id'] ?>);"  >
+                                       </td>
+                                     
+                                    </tr>
+                                          <?php
+                                       }
                                     }
                                  } 
                                  
@@ -113,6 +133,7 @@
                xmlhttp.open("GET","forajax/set_exam_type_session.php?exam_id="+exam_id,true);
                xmlhttp.send(null); 
             }
+          
          </script>
                            
 

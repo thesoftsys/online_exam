@@ -18,6 +18,9 @@
       $examIdResult = mysqli_fetch_array($selExamId,MYSQLI_BOTH);
       
       $examId = $examIdResult['id'];
+      
+      $totalQuestionInThisExam = mysqli_num_rows(mysqli_query($db,"SELECT*FROM add_questions WHERE exam_id = '$examId'"));
+     
   
       ?>
          <!-- =============================================== -->
@@ -29,7 +32,8 @@
                   <i class="fa fa-users"></i>
                </div>
                <div class="header-title">
-                  <h1>Add Questions To Exam  </h1>
+                  <h1>Add Questions To Exam </h1>
+                  <p> <?php echo $totalQuestionInThisExam; echo "<br>"; echo $examIdResult['nquestion'] ?> </p>
                   
                </div>
             </section>
@@ -73,7 +77,7 @@
                                         <div class="form-group">
                                     
                                             <label>Enter Question</label>
-                                            <input type="text"  name="qus" class="form-control">
+                                            <input type="text" required name="qus" class="form-control">
                                         </div>
 
                                    </div>
@@ -115,7 +119,7 @@
                                    </div>
                             
                                </div>
-                              
+                                
 
                           
                   
@@ -151,14 +155,24 @@
                 mysqli_query($db,"UPDATE add_questions SET question_no = '$loop' WHERE id = $row[id] ");
             }
         }
-
         $loop = $loop+1;
-        mysqli_query($db,"INSERT INTO  add_questions(question_no,exam_id,question,option_one,option_two,option_three,option_four,right_option) VALUES('$loop','$examId','$qus','$op1','$op2','$op3','$op4','$ans')");
+        $chkexist = mysqli_query($db,"SELECT *FROM add_questions WHERE question = '$qus'");
+        if(mysqli_num_rows($chkexist) > 0)
+        {
+            echo "adf";
+        }
+        else
+        {
+            mysqli_query($db,"INSERT INTO  add_questions(question_no,exam_id,question,option_one,option_two,option_three,option_four,right_option) VALUES('$loop','$examId','$qus','$op1','$op2','$op3','$op4','$ans')");
+            
+        }
+     
  
       
 
     //  $insQus = "INSERT INTO add_questions()" 
     }
+   
 
 ?>
 

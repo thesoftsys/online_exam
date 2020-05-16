@@ -1,9 +1,19 @@
 <?php 
+          
          include('includes/header.php');
          include('includes/sidebar.php');
          include('includes/connection.php');
+         if(empty($_SESSION["exam_id"]))
+         {
+            echo "<script>location.href='taketest.php'</script>";
+         }
          $date = date("Y-m-d H:i:s");
          $_SESSION["end_time"] = date("Y-m-d H:i:s",strtotime($date."+$_SESSION[exam_time] minutes"));
+         
+         
+
+
+
          ?>
 
          <!-- =============================================== -->
@@ -33,11 +43,14 @@
                         <div class="panel-body" >
 
                             <?php 
+
+                            
                                 $correct = 0;
                                 $wrong = 0;
                                 
                                 if(isset($_SESSION["answer"]))
                                 {
+
                                     for($i=1; $i<=sizeof($_SESSION["answer"]); $i++)
                                     {
                                         $answer = "";
@@ -68,14 +81,39 @@
                                 $res = mysqli_query($db,"SELECT *FROM add_questions WHERE exam_id = '$_SESSION[exam_id]'");
                                 $count = mysqli_num_rows($res);
                                 $wrong = $count-$correct;
+
+                                $selExam = mysqli_query($db,"SELECT *FROM add_new_exam WHERE id = '$_SESSION[exam_id]' ");
+                                $row = mysqli_fetch_array($selExam,MYSQLI_BOTH);
+                                $totalMarks = $count * $row['equestionm'];
+                                $totalobtainedmarks = $correct*$row['equestionm'];
+                                $percentage = $totalobtainedmarks*100/$totalMarks;
+
                                 echo "<br>"; echo "<br>";
                                 echo "<center>";
-                                echo $count;
+                                echo "Total Ques ".$count;
                                 echo "<br>";
-                                echo $correct;
+                                echo "Coreect ans ".$correct;
                                 echo "<br>";
-                                echo $wrong;
+                                echo "Wrong ANs ".$wrong;
                                 echo "<center>";
+                                echo "<br>";
+                                echo round($percentage)."%";
+                                echo "<br>";
+
+                                if($percentage >= 65)
+                                {
+                                   echo "pass";
+                                }
+                                else
+                                {
+                                    echo "fail";
+                                }
+                                
+                               
+                                
+
+                             
+                                
                             
                             ?>
 
@@ -100,12 +138,38 @@
             <!-- /.content -->
          </div>
          <?php
+         
             if(isset($_SESSION["exam_start"]))
             {
                $date = date("y-m-d");
+               mysqli_query($db,"INSERT INTO exam_result(user_id,exam_id,total_question,correct_answer,wrong_answer,exam_time,marks_percentage) VALUES('$_SESSION[user_id]','$_SESSION[exam_id]','$count','$correct','$wrong','$date','$percentage')");
+            }
+            
+            if(isset($_SESSION["exam_start"]))
+            {
+              
+               
+               unset($_SESSION["exam_start"]);
+               
+               ?>
+               <script>
+                  window.location.href = window.location.href;
+               </script>
+               <?php
             }
 
          ?>
-     
+         
+      <!-- <script>
+            window.history.pushState({page: 1}, "", "");
+
+         window.onpopstate = function(event) {
+            if(event){
+               window.location.href = 'taketest.php';
+               // Code to handle back button or prevent from navigation
+            }
+         }
+      </script> -->
+     <?php echo '<pre>' . print_r($_SESSION, TRUE) . '</pre>'; ?>
 
        <?php include('includes/footer.php'); ?>

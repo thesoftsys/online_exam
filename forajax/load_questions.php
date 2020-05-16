@@ -45,7 +45,11 @@
         <tr>
             <td style="font-weight: bold; font-size:18px; padding-left: 5px;" colspan="2">
 
-                <?php echo "( ".$question_no ." ) ".$question; ?>
+                <!-- <?php echo "( ".$question_no ." ) ".$question; ?> -->
+                <div class="input-container">
+                    <span class=" icon"><?php echo $question_no ?></span>
+                    <h2><?php echo $question; ?></h2>
+                </div>
 
             </td>
         </tr>
@@ -54,7 +58,8 @@
     <table>
         <tr>
             <td>
-                <input type="radio" name="r1" value="<?php echo $op1; ?>" onclick="radioclick(this.value,<?php echo $question_no; ?>)" 
+                <label class="container">
+                <input type="radio"  name="r1" value="<?php echo $op1; ?>" onclick="radioclick(this.value,<?php echo $question_no; ?>)" 
                 <?php 
                 if($ans == $op1)
                 {
@@ -68,6 +73,11 @@
                         echo $op1;
                 
                 ?>
+                <span class="checkmark"></span>
+                </label>
+
+               
+               
             </td>
             
                 
@@ -75,57 +85,67 @@
         </tr>
 
         <tr>
-            <td>
-                <input type="radio" name="r1" value="<?php echo $op2; ?>" onclick="radioclick(this.value,<?php echo $question_no; ?>)" 
-
+            <td> <label class="container">
+                <input type="radio"  name="r1" value="<?php echo $op2; ?>" onclick="radioclick(this.value,<?php echo $question_no; ?>)" 
                 <?php 
                 if($ans == $op2)
                 {
                     echo "checked";
                 }
+               
                 
                 ?>>
-                 <?php 
+                <?php 
                    
-                   echo $op2;
-           
+                        echo $op2;
+                
                 ?>
+                <span class="checkmark"></span>
+                </label>
             </td>
         </tr>
 
         <tr>
             <td>
-                <input type="radio" name="r1" value="<?php echo $op3; ?>" onclick="radioclick(this.value,<?php echo $question_no; ?>)" 
-                
+            <label class="container">
+                <input type="radio"  name="r1" value="<?php echo $op3; ?>" onclick="radioclick(this.value,<?php echo $question_no; ?>)" 
                 <?php 
                 if($ans == $op3)
                 {
                     echo "checked";
                 }
+               
+                
                 ?>>
-                 <?php 
+                <?php 
                    
-                   echo $op3;
-           
+                        echo $op3;
+                
                 ?>
+                <span class="checkmark"></span>
+                </label>
             </td>
         </tr>
 
         <tr>
             <td>
-                <input type="radio" name="r1" value="<?php echo $op4; ?>" onclick="radioclick(this.value,<?php echo $question_no; ?>)" 
+            <label class="container">
+                <input type="radio"  name="r1" value="<?php echo $op4; ?>" onclick="radioclick(this.value,<?php echo $question_no; ?>)" 
                 <?php 
                 if($ans == $op4)
                 {
                     echo "checked";
                 }
+               
                 
                 ?>>
-                 <?php 
+                <?php 
                    
-                   echo $op4;
-           
+                        echo $op4;
+                
                 ?>
+                <span class="checkmark"></span>
+                </label>
             </td>
         </tr>
 
