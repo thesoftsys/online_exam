@@ -1,3 +1,12 @@
+<?php 
+    session_start();
+    if(empty($_SESSION["lastid"]))
+    {
+        header("Location:register.php");
+    }
+
+?>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -36,21 +45,28 @@
                                 <i class="pe-7s-refresh-2"></i>
                             </div>
                             <div class="header-title">
-                                <h3>OTP Varification</h3>
-                                <small><strong>Please fill the form to Varify your Mobile Number</strong></small>
+                                <h3>OTP Verification</h3>
+                                <small><strong>Please fill the form to Verify your Mobile Number</strong></small>
                             </div>
                         </div>
                     </div>
                     <div class="panel-body">
                         <form action="code.php?flag=4" method="post">
-                            <p>Fill with your OTP to receive instructions on how to Varify your Mobile Number.</p>
+                            <p>Fill with your OTP to receive instructions on how to Verify your Mobile Number.</p>
                             <div class="form-group">
                                 <label class="control-label" for="otp">Enter Your OTP</label>
                                 <input type="text" placeholder="@1234" title="Please enter you email adress" required=""  name="otp" class="form-control">
-                                <span class="help-block small">Your registered OTP</span>
+                                
                             </div>
                             <div>
-                                <button class="btn btn-add btn-block">Varify</button>
+                                <div class="col-sm-6">
+                                <button class="btn btn-add btn-block">Verify</button>
+                                </div>
+                                <div class="col-sm-6">
+                                    <a href="code.php?flag=21" class="btn btn-success btn-block" >Resend</a>
+                                    
+                                </div>
+                                
                             </div>
                         </form>
                     </div>
@@ -58,6 +74,7 @@
                 </div>
             </div>
         </div>
+      
         <!-- /.content-wrapper -->
         <!-- jQuery -->
         <script src="assets/plugins/jQuery/jquery-1.12.4.min.js" type="text/javascript"></script>

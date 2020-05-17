@@ -4,7 +4,10 @@
          include('includes/header.php');
          include('includes/sidebar.php');
          include('includes/connection.php');
-        
+         if(empty($_SESSION["exam_start"]))
+         {
+            echo "<script>location.href='taketest.php'</script>";
+         }
          
          ?>
 
@@ -224,10 +227,10 @@
          </script>
 
          <?php
-              if(empty($_SESSION["exam_start"]))
-               {
-                  echo "<script>location.href='taketest.php'</script>";
-               }
+            //   if(empty($_SESSION["exam_start"]))
+            //    {
+            //       echo "<script>location.href='taketest.php'</script>";
+            //    }
          
          ?>
 

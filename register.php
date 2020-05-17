@@ -59,7 +59,7 @@
                                     <span class="help-block small">Please enter your pasword</span>
                                 </div>
                                 <div class="form-group col-lg-6">
-                                    <label>Confirm Password</label>
+                                    <label>Confirm Password</label> 
                                     <input type="password" value="" id="cpass" onblur="chkpass()" class="form-control" name="confirm_password">
                                     <span class="help-block small">Please enter confirm pasword</span>
                                 </div>
@@ -67,6 +67,9 @@
                                     <label>Mobile</label>
                                     <input type="number" value="" id="mobile" class="form-control" name="mobile">
                                     <span class="help-block small">Your address email to contact</span>
+                                </div>
+                                <div class="form-group col-lg-6">
+                                <h3 id="errormsg" style="color: red;" >Passowrd Not Match</h3>
                                 </div>
                             </div>
                             <div>
@@ -84,6 +87,9 @@
         <!-- bootstrap js -->
         <script src="assets/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
         <script type="text/javascript">
+            var errormsg = document.getElementById("errormsg");
+            errormsg.style.display = "none";
+            
             function chkpass()
             {
                 var pass = document.getElementById("pass").value;
@@ -91,11 +97,13 @@
                 var regbtn = document.getElementById("reg");
                 if(pass == cpass)
                 {
-                  regbtn.disabled = false;
+                    errormsg.style.display = "none";
+                    regbtn.disabled = false;
                 }
                 else
                 {
-                    alert("Password Not Match");
+                    errormsg.style.display = "block";
+                   
                     regbtn.disabled = true;
                 }
                

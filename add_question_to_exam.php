@@ -33,7 +33,8 @@
                </div>
                <div class="header-title">
                   <h1>Add Questions To Exam </h1>
-                  <p> <?php echo $totalQuestionInThisExam; echo "<br>"; echo $examIdResult['nquestion'] ?> </p>
+                  
+                  <b> <?php echo $totalQuestionInThisExam; echo " Out Of "; echo $examIdResult['nquestion'] ?> </b>
                   
                </div>
             </section>

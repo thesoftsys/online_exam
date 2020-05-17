@@ -48,29 +48,49 @@
 		break;
 
 		case 3:
+				//insert student data
 				extract($_POST);
-				// $randno = rand(1000,9999);
-				$seleStudent = "SELECT *FROM exam_student";
-				$studentQuery = mysqli_query($db,$seleStudent);
-				$countStudent = mysqli_num_rows($studentQuery);
-
 				
-
-				$user_id = "DCST".($countStudent+1);
-
-				
-				$otp = rand(1000,9999);
-				$ins = "INSERT INTO exam_student(fullname,email,password,mobile,user_id,otp) VALUES('$fullname','$email','$password','$mobile','$user_id','$otp')";
-				$query = mysqli_query($db,$ins);
-				if($query)
+				$countStudent = mysqli_num_rows(mysqli_query($db,"SELECT *FROM exam_student"));
+				$seleStudentEmail = "SELECT *FROM exam_student WHERE email = '$email'";
+				if(mysqli_num_rows(mysqli_query($db,"SELECT *FROM exam_student WHERE email = '$email'")) > 0)
 				{
-
-					session_start();
-					$_SESSION['lastid'] =  mysqli_insert_id($db);
-					
-					
-					echo "<script>alert('Registration Successfully');location.href='otp.php'</script>";
+					echo "<script>alert('Email Already Registered');location.href='register.php'</script>";
+						
 				}
+				else
+				{
+					if(mysqli_num_rows(mysqli_query($db,"SELECT *FROM exam_student WHERE mobile = '$mobile'")) > 0)
+					{
+						echo "<script>alert('Mobile Already Registered');location.href='register.php'</script>";
+					}
+					else
+					{
+						$user_id = "DCST".($countStudent+1);
+
+				
+						$otp = rand(1000,9999);
+						$ins = "INSERT INTO exam_student(fullname,email,password,mobile,user_id,otp) VALUES('$fullname','$email','$password','$mobile','$user_id','$otp')";
+						$query = mysqli_query($db,$ins);
+						if($query)
+						{
+
+							session_start();
+							$_SESSION['lastid'] =  mysqli_insert_id($db);
+							
+							
+							echo "<script>alert('Registration Successfully. Please Verify Otp Sent Your Mobile Number');location.href='otp.php'</script>";
+						}
+					}	
+				}
+
+
+				// $studentQueryEmail = mysqli_query($db,$seleStudent);
+				// $countStudent = mysqli_num_rows($studentQuery);
+
+				
+
+			break;
 
 				case 4:
 
@@ -93,6 +113,10 @@
 
 					echo "<script>alert('Otp Verify Successfully. Please Login in your Account');location.href='studentlogin.php'</script>";
 
+				}
+				else
+				{
+					echo "<script>alert('Otp Wrong.');location.href='otp.php'</script>";
 				}
 
 
@@ -390,6 +414,68 @@
 			echo "<script>alert('Your Request Successfully Submited');location.href='enroll_new_exam.php'</script>";
 			}
 				
+		break;
+
+		case 21:
+			//resend otp
+			session_start();
+			$otp = rand(1000,9999);
+			$lastid = $_SESSION["lastid"];
+			$updateotp = mysqli_query($db,"UPDATE exam_student SET otp = '$otp' WHERE id = '$lastid'");
+			if($updateotp)
+			{
+				echo "<script>alert('Otp Send Successfully');location.href='otp.php'</script>";
+			}
+
+		break;
+
+		case 22:
+			//update student detail
+			extract($_POST);
+			$uid = $_REQUEST["id"];
+			if($_POST["submit"])
+			{
+				if(mysqli_num_rows(mysqli_query($db,"SELECT *FROM exam_student WHERE email = '$email' AND NOT id = '$uid' ")) > 0)
+				{
+					echo "<script>alert('Email Alredy Exist');location.href='all_students.php'</script>";
+				}
+				else
+				{
+					if(mysqli_num_rows(mysqli_query($db,"SELECT *FROM exam_student WHERE mobile = '$mobile' AND NOT id = '$uid' ")) > 0)
+					{
+						echo "<script>alert('Mobile Alredy Exist');location.href='all_students.php'</script>";
+					}
+					else
+					{
+						$updateStudent = mysqli_query($db,"UPDATE exam_student SET fullname = '$fullname', email = '$email', mobile = '$mobile' WHERE id = '$uid' ");
+						if($updateStudent)
+						{
+							echo "<script>alert('Student Update Successfully');location.href='all_students.php'</script>";
+						}
+					}
+				}
+
+			}
+
+		break;
+
+		case 23:
+			//delete student record
+			if(isset($_POST["submit"]))
+			{
+				$delid = $_REQUEST["delid"];
+				$selUserId = mysqli_fetch_array(mysqli_query($db,"SELECT *FROM exam_student WHERE id = '$delid'"));
+				$userId = $selUserId["user_id"];
+				
+				$delStudent = mysqli_query($db,"DELETE FROM exam_student WHERE id = '$delid'");
+				if($delStudent)
+				{
+					$delLoginStudentDetail = mysqli_query($db,"DELETE FROM student_login WHERE user_id = '$userId'");
+					echo "<script>alert('Student Delete Successfully');location.href='all_students.php'</script>";
+				}
+
+			}
+			
 		break;
 	}
 	

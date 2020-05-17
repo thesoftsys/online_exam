@@ -88,32 +88,27 @@
                                 $totalobtainedmarks = $correct*$row['equestionm'];
                                 $percentage = $totalobtainedmarks*100/$totalMarks;
 
-                                echo "<br>"; echo "<br>";
-                                echo "<center>";
-                                echo "Total Ques ".$count;
-                                echo "<br>";
-                                echo "Coreect ans ".$correct;
-                                echo "<br>";
-                                echo "Wrong ANs ".$wrong;
-                                echo "<center>";
-                                echo "<br>";
-                                echo round($percentage)."%";
-                                echo "<br>";
+                              //   echo "<br>"; echo "<br>";
+                              //   echo "<center>";
+                              //   echo "Total Ques ".$count;
+                              //   echo "<br>";
+                              //   echo "Coreect ans ".$correct;
+                              //   echo "<br>";
+                              //   echo "Wrong ANs ".$wrong;
+                              //   echo "<center>";
+                              //   echo "<br>";
+                              //   echo round($percentage)."%";
+                              //   echo "<br>";
 
-                                if($percentage >= 65)
-                                {
-                                   echo "pass";
-                                }
-                                else
-                                {
-                                    echo "fail";
-                                }
-                                
+                              //   if($percentage >= 65)
+                              //   {
+                              //      echo "pass";
+                              //   }
+                              //   else
+                              //   {
+                              //       echo "fail";
+                              //   }
                                
-                                
-
-                             
-                                
                             
                             ?>
 
@@ -122,6 +117,63 @@
                         <!--<div class="table-responsive">
                               
                            </div> -->
+                           <div class="table-responsive">
+                              <table id="dataTableExample1" class="table table-bordered table-striped table-hover">
+                                 <thead>
+                                    <tr class="info">
+                                       
+                                       <th>Total Questions</th>
+                                       <th>Correct Answer</th>
+                                       <th>Wrong Answer</th>
+                                       <th>Percentage</th>
+                                       <th>Pass/Fail</th>
+                                       <th>Download Certificate</th>
+                                    </tr>
+                                 </thead>
+                                 <tbody>
+                                    <tr>
+                                       
+                                       
+                                       <td><?php echo $count; ?></td>
+                                       <td><?php echo $correct; ?></td>
+                                       <td><?php echo $wrong; ?></td>
+                                       <td><?php echo round($percentage); ?>%</td>
+                                       <?php
+                                     if($percentage >= 65)
+                                     {
+                                       
+                                       
+                                       ?>
+                                       <td><?php echo "Pass"; ?></td>
+                                     <?php
+                                      }
+                                      else
+                                      {
+
+                                      
+                                     
+                                     ?>
+                                     <td><?php echo "Fail"; ?></td>
+
+                                     <?php } ?>
+                                      
+
+                                       <td>
+                                         <input type="submit" value="Download" class=" btn btn-sm btn-rounded btn-success"  >
+                                       </td>
+                                     
+                                    </tr>
+
+                                             
+
+                                    
+                                       
+                                     
+                                 
+                                          
+                                 </tbody>
+                              </table>
+                           </div>
                         </div>
 
                      </div>
