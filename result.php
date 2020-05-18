@@ -7,9 +7,13 @@
          {
             echo "<script>location.href='taketest.php'</script>";
          }
+         if($_SESSION["role"] == 1)
+         {
+            echo "<script>location.href='dashboard.php'</script>";
+         }
          $date = date("Y-m-d H:i:s");
          $_SESSION["end_time"] = date("Y-m-d H:i:s",strtotime($date."+$_SESSION[exam_time] minutes"));
-         
+        
          
 
 
@@ -87,6 +91,9 @@
                                 $totalMarks = $count * $row['equestionm'];
                                 $totalobtainedmarks = $correct*$row['equestionm'];
                                 $percentage = $totalobtainedmarks*100/$totalMarks;
+
+                                $selCourse = mysqli_query($db,"SELECT *FROM add_course WHERE id = '$row[course_id]' ");
+                                $getCourse = mysqli_fetch_array($selCourse,MYSQLI_BOTH);
 
                               //   echo "<br>"; echo "<br>";
                               //   echo "<center>";
@@ -194,7 +201,7 @@
             if(isset($_SESSION["exam_start"]))
             {
                $date = date("y-m-d");
-               mysqli_query($db,"INSERT INTO exam_result(user_id,exam_id,total_question,correct_answer,wrong_answer,exam_time,marks_percentage) VALUES('$_SESSION[user_id]','$_SESSION[exam_id]','$count','$correct','$wrong','$date','$percentage')");
+               mysqli_query($db,"INSERT INTO exam_result(user_id,exam_id,course_name,exam_name,total_question,correct_answer,wrong_answer,exam_time,marks_percentage) VALUES('$_SESSION[user_id]','$_SESSION[exam_id]','$getCourse[cname]','$row[ename]','$count','$correct','$wrong','$date','$percentage')");
             }
             
             if(isset($_SESSION["exam_start"]))

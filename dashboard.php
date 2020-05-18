@@ -1,6 +1,8 @@
          <?php 
          include('includes/header.php');
          include('includes/sidebar.php');
+         include('includes/connection.php');
+        
 
          ?>
 
@@ -90,6 +92,8 @@
                <?php 
                if( $_SESSION['role'] == 2)
                {
+                  $selStudent = mysqli_query($db,"SELECT *FROM exam_student WHERE user_id = '$_SESSION[user_id]' ");
+                  $studentName = mysqli_fetch_array($selStudent,MYSQLI_BOTH);
 
                ?>
 
@@ -101,8 +105,8 @@
                   <i class="fa fa-dashboard"></i>
                </div>
                <div class="header-title">
-                  <h1>Online Exam Students Dashboard</h1>
-                  <small>Very detailed & featured Students Dashboard.</small>
+                  <h1>Hi <span style="color: #3E9789;"> <?php echo $studentName["fullname"] ?></span></h1>
+                  <small></small>
                </div>
             </section>
             <!-- Main content -->

@@ -109,7 +109,7 @@
                <!-- sidebar menu -->
                <ul class="sidebar-menu">
                   <li class="active">
-                     <a href="dashboard.php"><i class="fa fa-tachometer"></i><span>Student Dashboard</span>
+                     <a href="dashboard.php"><i class="fa fa-tachometer"></i><span>Dashboard</span>
                      <span class="pull-right-container">
                      </span>
                      </a>

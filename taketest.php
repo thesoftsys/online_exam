@@ -4,6 +4,10 @@
          include('includes/header.php');
          include('includes/sidebar.php');
          include('includes/connection.php');
+         if($_SESSION["role"] == 1)
+         {
+            echo "<script>location.href='dashboard.php'</script>";
+         }
          $sel = "SELECT * FROM add_new_exam WHERE status = '1'";
          $query = mysqli_query($db,$sel);
 
@@ -73,7 +77,7 @@
                                        <td><?php echo $row['pmax']; ?></td>
                                        <td><?php echo $row['equestionm']; ?></td>
                                       <?php 
-                                       $chkExam = mysqli_query($db,"SELECT * FROM exam_result WHERE exam_id = $row[id]");
+                                       $chkExam = mysqli_query($db,"SELECT * FROM exam_result WHERE exam_id = $row[id] And user_id = '$_SESSION[user_id]' ");
                                        if(mysqli_num_rows($chkExam) > 0)
                                        {
 
@@ -84,8 +88,6 @@
                                        </td>
                                      
                                     </tr>
-
-                                             
 
                                     <?php 
                                        }

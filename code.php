@@ -79,7 +79,7 @@
 							$_SESSION['lastid'] =  mysqli_insert_id($db);
 							
 							
-							echo "<script>alert('Registration Successfully. Please Verify Otp Sent Your Mobile Number');location.href='otp.php'</script>";
+							echo "<script>alert('Otp Sent Your Mobile Number. Please Verify');location.href='otp.php'</script>";
 						}
 					}	
 				}
@@ -111,7 +111,7 @@
 					mysqli_query($db,$insertLoginDetail);
 					unset($_SESSION['lastid']);
 
-					echo "<script>alert('Otp Verify Successfully. Please Login in your Account');location.href='studentlogin.php'</script>";
+					echo "<script>alert('Otp Verified Successfully. Please Login in your Account');location.href='studentlogin.php'</script>";
 
 				}
 				else
