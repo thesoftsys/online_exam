@@ -55,7 +55,7 @@
                             </div>
                             <div>
                                 <button class="btn btn-add">Login</button>
-                                <a class="btn btn-warning" href="register.php">Register</a>
+                                
                             </div>
                         </form>
                         </div>
