@@ -79,7 +79,7 @@
                                  ?>
                                  <tbody>
                                     <tr>
-                                       <td>1</td>
+                                       <td><?php echo $sr; ?></td>
                                        <td><?php echo $result["course_name"]; ?></td>
                                        <td><?php echo $result["exam_name"]; ?></td>
                                        <td><?php echo $result["total_question"]; ?></td>
@@ -102,8 +102,8 @@
                                        
                                        
                                        <td>
+                                       <a href="downloadresult.php?downloa=<?php echo $result["id"]; ?>" class="btn btn-exp btn-sm dropdown-toggle" >Download</a>
                                        
-                                       <button class="btn btn-exp btn-sm dropdown-toggle" data-toggle="dropdown"><i class="fa fa-bars"></i> Download</button>
                                        </td>
                                     </tr>
                                  </tbody>

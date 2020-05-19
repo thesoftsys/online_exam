@@ -160,7 +160,7 @@
         $chkexist = mysqli_query($db,"SELECT *FROM add_questions WHERE question = '$qus'");
         if(mysqli_num_rows($chkexist) > 0)
         {
-            echo "adf";
+            
         }
         else
         {

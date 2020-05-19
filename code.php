@@ -24,9 +24,6 @@
                 
 
 
-
-
-
                 echo "<script>alert('Login Successfully');location.href='dashboard.php'</script>";
             }
             else{
@@ -74,12 +71,33 @@
 						$query = mysqli_query($db,$ins);
 						if($query)
 						{
+						    $to = $email;
+                            $subject = 'DC Infotech IT Solution';
+                            $message = "<img src='https://dcinfotech.org/Assets/images/Logo%20Final%20DC.png' height='100px' width='200px'>
+                            <hr style='border-top: 3px solid blue;' >
+                            <h4>Hello $fullname </h4>
+                            
+                            <p>Welcome in DC Infotech IT Solutions Pvt. Ltd, Please Verify Your Email.</p>
+                            <br><br>
+                            
+                            <p>Your Otp Is <b>$otp</b> </p>
+                            <br>
+                            <br>
+                            
+                            <h4>Warm Regards</h4>
+                            <h4>DC Infotech IT Solutions Pvt. Ltd</h4>
+                            <a href='www.dcinfotech.org'>www.dcinfotech.org</a> | <a href = mailto: education@dcinfotech.org'>education@dcinfotech.org</a>";
+                            $headers  = 'MIME-Version: 1.0' . "\r\n";
+                            $headers .= 'Content-type:text/html;charset=UTF-8' . "\r\n";
+                            $headers .= 'From: DC Infotech <education@dcinfotech.org>' . "\r\n";
+                            mail($to, $subject, $message, $headers);
+
 
 							session_start();
 							$_SESSION['lastid'] =  mysqli_insert_id($db);
 							
 							
-							echo "<script>alert('Otp Sent Your Mobile Number. Please Verify');location.href='otp.php'</script>";
+							echo "<script>alert('Otp Sent On Your Email. Please Verify');location.href='otp.php'</script>";
 						}
 					}	
 				}
@@ -93,24 +111,56 @@
 			break;
 
 				case 4:
+				    
+				   
 
-
-				session_start();
+            	session_start();
 				$lastid = $_SESSION['lastid'];
 				$otp =$_POST['otp'];
 
 				$verify = "SELECT * FROM exam_student WHERE id = '$lastid' AND otp = '$otp'";
 				$verifyQuery = mysqli_query($db,$verify);
+			    
+				 
 				if(mysqli_num_rows($verifyQuery) > 0)
 				{
-					$rows = mysqli_fetch_array($verifyQuery,MYSQLI_BOTH);
-					$userid = $rows['user_id'];
-					$password = $rows['password'];
-
+				    $rows = mysqli_fetch_array($verifyQuery,MYSQLI_BOTH);
+    				$fullname = $rows["fullname"];
+    				$email = $rows["email"];
+    				$userid = $rows['user_id'];
+    				$password = $rows['password'];
+				
 					$insertLoginDetail = "INSERT INTO student_login(user_id,password) VALUES('$userid','$password')";
 					mysqli_query($db,$insertLoginDetail);
-					unset($_SESSION['lastid']);
+	                
+	                $to = $email;
+					$subject = 'DC Infotech IT Solution';
+					$message = "<img src='https://dcinfotech.org/Assets/images/Logo%20Final%20DC.png' height='100px' width='200px'>
+					<hr style='border-top: 3px solid blue;' >
+					<h4>Hello $fullname </h4>
 
+					<p>Welcome in DC Infotech IT Solutions Pvt. Ltd, you can take exam for your selected course. Hope you enjoy our course and learn lots of new things.</p>
+					<br><br>
+
+					User ID- $userid
+					<br><br>
+					Password- $password
+					<br>
+					<br>
+
+
+					<h4>Warm Regards</h4>
+					<h4>DC Infotech IT Solutions Pvt. Ltd</h4>
+					<a href='www.dcinfotech.org'>www.dcinfotech.org</a> | <a href = mailto: education@dcinfotech.org'>education@dcinfotech.org</a>";
+					$headers  = 'MIME-Version: 1.0' . "\r\n";
+					$headers .= 'Content-type:text/html;charset=UTF-8' . "\r\n";
+					$headers .= 'From: DC Infotech <education@dcinfotech.org>' . "\r\n";
+					mail($to, $subject, $message, $headers);
+					
+					unset($_SESSION['lastid']);
+					
+					
+                    
 					echo "<script>alert('Otp Verified Successfully. Please Login in your Account');location.href='studentlogin.php'</script>";
 
 				}
@@ -120,12 +170,11 @@
 				}
 
 
-				
+		
 
 
 				break;
-		break;
-
+	
 			case 5:
 
 			//Student Login Code Here
@@ -421,9 +470,37 @@
 			session_start();
 			$otp = rand(1000,9999);
 			$lastid = $_SESSION["lastid"];
+			
+			$selStudent = mysqli_query($db,"SELECT *FROM exam_student WHERE id = '$lastid'");
+		    $result = mysqli_fetch_array($selStudent,MYSQLI_BOTH);
+		    $email = $result["email"];
+		    $fullname = $result["fullname"];
+		    
+			
 			$updateotp = mysqli_query($db,"UPDATE exam_student SET otp = '$otp' WHERE id = '$lastid'");
 			if($updateotp)
 			{
+			    $to = $email;
+                $subject = 'DC Infotech IT Solution';
+                $message = "<img src='https://dcinfotech.org/Assets/images/Logo%20Final%20DC.png' height='100px' width='200px'>
+                <hr style='border-top: 3px solid blue;' >
+                <h4>Hello $fullname </h4>
+                
+                <p>Welcome in DC Infotech IT Solutions Pvt. Ltd, Please Verify Your Email.</p>
+                <br><br>
+                
+                <p>Your Otp Is <b>$otp</b> </p>
+                <br>
+                <br>
+                
+                <h4>Warm Regards</h4>
+                <h4>DC Infotech IT Solutions Pvt. Ltd</h4>
+                <a href='www.dcinfotech.org'>www.dcinfotech.org</a> | <a href = mailto: education@dcinfotech.org'>education@dcinfotech.org</a>";
+                $headers  = 'MIME-Version: 1.0' . "\r\n";
+                $headers .= 'Content-type:text/html;charset=UTF-8' . "\r\n";
+                $headers .= 'From: DC Infotech <education@dcinfotech.org>' . "\r\n";
+                mail($to, $subject, $message, $headers);
+                            
 				echo "<script>alert('Otp Send Successfully');location.href='otp.php'</script>";
 			}
 

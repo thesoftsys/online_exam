@@ -1,9 +1,9 @@
    <?php 
      
-      // include('includes/connection.php');
-      // $sel = "SELECT *FROM exam_admin";
-      // $query = mysqli_query($db,$sel);
-      // $rows = mysqli_fetch_array($query,MYSQLI_BOTH);
+      include('includes/connection.php');
+      $sel = "SELECT *FROM exam_admin";
+      $query = mysqli_query($db,$sel);
+      $rows = mysqli_fetch_array($query,MYSQLI_BOTH);
       if($_SESSION['role'] == "" )
     {
         header("Location:index.php");

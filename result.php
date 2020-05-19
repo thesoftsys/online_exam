@@ -163,10 +163,37 @@
                                      <td><?php echo "Fail"; ?></td>
 
                                      <?php } ?>
-                                      
+                                     <?php
+         
+                                          if(isset($_SESSION["exam_start"]))
+                                          {
+                                             $date = date("y-m-d");
+                                             mysqli_query($db,"INSERT INTO exam_result(user_id,exam_id,course_name,exam_name,total_question,correct_answer,wrong_answer,exam_time,marks_percentage) VALUES('$_SESSION[user_id]','$_SESSION[exam_id]','$getCourse[cname]','$row[ename]','$count','$correct','$wrong','$date','$percentage')");
+                                             $_SESSION['resultlastid'] = mysqli_insert_id($db);
+                                          }
+                                          
+                                          if(isset($_SESSION["exam_start"]))
+                                          {
+                                          
+                                             
+                                             unset($_SESSION["exam_start"]);
+                                             
+                                             ?>
+                                             <script>
+                                                window.location.href = window.location.href;
+                                             </script>
+                                             <?php
+                                          }
+
+                                         ?>
 
                                        <td>
-                                         <input type="submit" value="Download" class=" btn btn-sm btn-rounded btn-success"  >
+                                          
+
+                                          <a href="downloadcertificate.php?downloadid=<?php echo $_SESSION['resultlastid']; ?>" class=" btn btn-sm btn-rounded btn-success">Download</a>
+                                         
+
+                                         
                                        </td>
                                      
                                     </tr>
@@ -196,28 +223,7 @@
             </section>
             <!-- /.content -->
          </div>
-         <?php
          
-            if(isset($_SESSION["exam_start"]))
-            {
-               $date = date("y-m-d");
-               mysqli_query($db,"INSERT INTO exam_result(user_id,exam_id,course_name,exam_name,total_question,correct_answer,wrong_answer,exam_time,marks_percentage) VALUES('$_SESSION[user_id]','$_SESSION[exam_id]','$getCourse[cname]','$row[ename]','$count','$correct','$wrong','$date','$percentage')");
-            }
-            
-            if(isset($_SESSION["exam_start"]))
-            {
-              
-               
-               unset($_SESSION["exam_start"]);
-               
-               ?>
-               <script>
-                  window.location.href = window.location.href;
-               </script>
-               <?php
-            }
-
-         ?>
          
       <!-- <script>
             window.history.pushState({page: 1}, "", "");
