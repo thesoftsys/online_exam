@@ -12,6 +12,70 @@
          $query = mysqli_query($db,$sel);
 
          ?>
+          <style>
+         
+         /* mobile view table */
+         
+         table { 
+             width: 100%; 
+             table-layout: fixed;
+             border-collapse: collapse; 
+             margin: 0 auto;
+         }
+         /* Zebra striping */
+         tr:nth-of-type(odd) { 
+             background: #f2f2f2; 
+         }
+         th { 
+             background: #D9EDF7; 
+             color: #3C4767; 
+             font-weight: 600; 
+         }
+         td, th { 
+             padding: 12px; 
+             border: 2px solid #ccc; 
+             text-align: left; 
+             text-align: center
+         }
+         /*Mobile View*/
+         @media 
+         only screen and 
+             (max-width: 760px){
+             td, tr { 
+                 display: block; 
+            }
+            
+            /* Hide table headers (but not display: none;, for accessibility) */
+            thead tr { 
+               position: absolute;
+               top: -9999px;
+               left: -9999px;
+            }
+            tr {
+                 border: 1px solid #3c4767; 
+             }
+             tr + tr{
+                 margin-top: 1.5em;
+             }
+            td { 
+               /* make like a "row" */
+               border: none;
+               border-bottom: 2px solid #eee; 
+               position: relative;
+               padding-left: 50%; 
+                 
+                 text-align: left; 
+            }
+            td:before { 
+                 content: attr(data-label);
+                 display: inline-block;
+                 line-height: 1.5;
+                margin-left: -100%;
+                 width: 100%;
+               white-space: nowrap;
+            }
+         }
+               </style>
 
          <!-- =============================================== -->
          <!-- Content Wrapper. Contains page content -->
@@ -37,10 +101,10 @@
                         <div class="panel-body">
                         <!-- Plugin content:powerpoint,txt,pdf,png,word,xl -->
                            
-                           <br>
+                        
                            <!-- Plugin content:powerpoint,txt,pdf,png,word,xl -->
-                           <div class="table-responsive">
-                              <table id="dataTableExample1" class="table table-bordered table-striped table-hover">
+                           <div id="wrapper">
+                              <table>
                                  <thead>
                                     <tr class="info">
                                        <th>Sr.</th>
@@ -54,6 +118,8 @@
                                        <th>Action</th>
                                     </tr>
                                  </thead>
+                                 
+                                 <tbody>
                                  <?php 
                                     $sr = 1;
                                     while( $row = mysqli_fetch_array($query,MYSQLI_BOTH))
@@ -66,16 +132,15 @@
                                      
 
                                  ?>
-                                 <tbody>
                                     <tr>
                                        
-                                       <td><?php echo $sr++;?></td>
-                                       <td><?php echo $getExamName['cname'] ?></td>
-                                       <td><?php echo $row['ename']; ?></td>
-                                       <td><?php echo $row['nquestion']; ?></td>
-                                       <td><?php echo $row['exam_time']; ?> Min</td>
-                                       <td><?php echo $row['pmax']; ?></td>
-                                       <td><?php echo $row['equestionm']; ?></td>
+                                       <td data-label="Sr."><?php echo $sr++;?></td>
+                                       <td data-label="Course Name" ><?php echo $getExamName['cname'] ?></td>
+                                       <td data-label="Exam Name" ><?php echo $row['ename']; ?></td>
+                                       <td data-label="Number of Questions" ><?php echo $row['nquestion']; ?></td>
+                                       <td data-label="Time" ><?php echo $row['exam_time']; ?> Min</td>
+                                       <td data-label="Passing Max" ><?php echo $row['pmax']; ?></td>
+                                       <td data-label="Each Question Max" ><?php echo $row['equestionm']; ?></td>
                                       <?php 
                                        $chkExam = mysqli_query($db,"SELECT * FROM exam_result WHERE exam_id = $row[id] And user_id = '$_SESSION[user_id]' ");
                                        if(mysqli_num_rows($chkExam) > 0)
@@ -83,7 +148,7 @@
 
                                       ?>
 
-                                       <td>
+                                       <td data-label="Action" >
                                          <input type="submit" value="Completed" class=" btn btn-sm btn-rounded btn-success"  >
                                        </td>
                                      
@@ -94,7 +159,7 @@
                                        else
                                        {
                                           ?>
-                                           <td>
+                                           <td data-label="Action">
                                          <input type="submit" value="Take Exam" class=" btn btn-sm btn-rounded btn-primary" onclick="set_exam_type_session(<?php echo $row['id'] ?>);"  >
                                        </td>
                                      

@@ -4,6 +4,7 @@
       include('includes/header.php');
       include('includes/sidebar.php');
       include('includes/connection.php');
+      
 
       extract($_GET);
 
@@ -16,12 +17,11 @@
       $selExamId = mysqli_query($db,"SELECT * FROM add_new_exam WHERE course_id = '$cname' AND ename = '$ename'");
       
       $examIdResult = mysqli_fetch_array($selExamId,MYSQLI_BOTH);
-      
+      $totalNoOfQuestion = $examIdResult['nquestion'];
       $examId = $examIdResult['id'];
       
-      $totalQuestionInThisExam = mysqli_num_rows(mysqli_query($db,"SELECT*FROM add_questions WHERE exam_id = '$examId'"));
      
-  
+     
       ?>
          <!-- =============================================== -->
          <!-- Content Wrapper. Contains page content -->
@@ -34,7 +34,7 @@
                <div class="header-title">
                   <h1>Add Questions To Exam </h1>
                   
-                  <b> <?php echo $totalQuestionInThisExam; echo " Out Of "; echo $examIdResult['nquestion'] ?> </b>
+                  <b> <span id="questionNo">0</span> <?php echo " Out Of "; echo $examIdResult['nquestion'] ?> </b>
                   
                </div>
             </section>
@@ -43,7 +43,7 @@
                <div class="row">
                         
                   <!-- Form controls -->
-                  <div class="col-sm-12">
+                  <div class="col-sm-12" >
                      <div class="panel panel-bd lobidrag">
                         <div class="panel-heading">
                            <div class="btn-group" id="buttonlist"> 
@@ -51,7 +51,7 @@
                               <i class="fa fa-list"></i>View Questions List </a>  
                            </div>
                         </div>
-                        <div class="panel-body">
+                        <div class="panel-body" id="panel-body" >
                         <div class="row">
                                    <div class="col-sm-6">
                                         <div class="form-group">
@@ -78,7 +78,7 @@
                                         <div class="form-group">
                                     
                                             <label>Enter Question</label>
-                                            <input type="text" required name="qus" class="form-control">
+                                            <input type="text" required name="qus" class="form-control disableInput ">
                                         </div>
 
                                    </div>
@@ -86,7 +86,7 @@
                                         
                                         <div class="form-group">
                                             <label>Option 1</label>
-                                            <input type="text" name="op1" class="form-control">
+                                            <input type="text" name="op1" required class="form-control disableInput ">
                                         </div>
                                    </div>
 
@@ -94,28 +94,28 @@
                                         
                                         <div class="form-group">
                                             <label>Option 2</label>
-                                            <input type="text" name="op2"  class="form-control">
+                                            <input type="text" name="op2" required class="form-control disableInput ">
                                         </div>
                                    </div>
                                    <div class="col-sm-6">
                                         
                                         <div class="form-group">
                                             <label>Option 3</label>
-                                            <input type="text" name="op3"  class="form-control">
+                                            <input type="text" name="op3" required class="form-control disableInput ">
                                         </div>
                                    </div>
                                    <div class="col-sm-6">
                                         
                                         <div class="form-group">
                                             <label>Option 4</label>
-                                            <input type="text" name="op4"  class="form-control">
+                                            <input type="text" name="op4" required class="form-control disableInput ">
                                         </div>
                                    </div>
                                    <div class="col-sm-12">
                                         
                                         <div class="form-group">
                                             <label>Answer</label>
-                                            <input type="text" name="ans"  class="form-control">
+                                            <input type="text" name="ans" required class="form-control disableInput ">
                                         </div>
                                    </div>
                             
@@ -125,7 +125,7 @@
                           
                   
                               <div class="reset-button">
-                                 <input type="submit" name="submit" class="btn btn-success" value="Upload"/>
+                                 <input type="submit" name="submit" class="btn btn-success disableInput " value="Upload"/>
                               </div>
                            </form>
                         </div>
@@ -167,14 +167,45 @@
             mysqli_query($db,"INSERT INTO  add_questions(question_no,exam_id,question,option_one,option_two,option_three,option_four,right_option) VALUES('$loop','$examId','$qus','$op1','$op2','$op3','$op4','$ans')");
             
         }
-     
- 
-      
+        
+        
+        
 
     //  $insQus = "INSERT INTO add_questions()" 
     }
-   
+    $totalInsertedQuestionInThisExam = mysqli_num_rows(mysqli_query($db,"SELECT*FROM add_questions WHERE exam_id = '$examId'"));
 
+        echo "<script>
+        document.getElementById('questionNo').innerHTML = $totalInsertedQuestionInThisExam;
+        </script>";
 ?>
+
+<script>
+    var totalQuestionInserted = "<?php echo $totalInsertedQuestionInThisExam; ?>";
+    var totalNoOfquestion = "<?php echo $totalNoOfQuestion; ?>"; 
+    if(totalQuestionInserted == totalNoOfquestion)
+    {
+        
+        
+         var inputBox = document.getElementsByClassName("disableInput");
+            for(var i = 0; i < inputBox.length; i++)
+            {
+                
+                inputBox[i].setAttribute("disabled", true);
+                
+            }
+
+            document.getElementById("panel-body").addEventListener("click",function(){
+                $.notify("All Question Is Uploaded", "success");
+            });
+       
+    }
+    else
+    {
+       
+        
+    }
+   
+</script>
 
          <?php include('includes/footer.php'); ?>

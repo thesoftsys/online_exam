@@ -25,6 +25,10 @@
          =====================================================================-->
       <!-- Start Page Lavel Plugins
          =====================================================================-->
+         <!-- SlimScroll -->
+      <script src="assets/plugins/slimScroll/jquery.slimscroll.min.js" type="text/javascript"></script>
+         <!-- FastClick -->
+      <script src="assets/plugins/fastclick/fastclick.min.js" type="text/javascript"></script>
       <!-- ChartJs JavaScript -->
       <script src="assets/plugins/chartJs/Chart.min.js" type="text/javascript"></script>
       <!-- Counter js -->
@@ -32,12 +36,17 @@
       <script src="assets/plugins/counterup/jquery.counterup.min.js" type="text/javascript"></script>
       <!-- Monthly js -->
       <script src="assets/plugins/monthly/monthly.js" type="text/javascript"></script>
+      <!-- iCheck js -->
+      <script src="assets/plugins/icheck/icheck.min.js" type="text/javascript"></script>
+      <!-- Bootstrap toggle -->
+      <script src="assets/plugins/bootstrap-toggle/bootstrap-toggle.min.js" type="text/javascript"></script>
       <!-- End Page Lavel Plugins
          =====================================================================-->
       <!-- Start Theme label Script
          =====================================================================-->
       <!-- Dashboard js -->
       <script src="assets/dist/js/dashboard.js" type="text/javascript"></script>
+      <script src="assets/dist/js/notify.js" type="text/javascript"></script>
       <!-- End Theme label Script
          =====================================================================-->
       <script>
@@ -118,10 +127,39 @@
                  time: 5000
              });
          }
-         dash();         
+         dash();   
+
+         $('.skin-minimal .i-check input').iCheck({
+             checkboxClass: 'icheckbox_minimal',
+             radioClass: 'iradio_minimal',
+             increaseArea: '20%'
+         });
+         
+         $('.skin-square .i-check input').iCheck({
+             checkboxClass: 'icheckbox_square-green',
+             radioClass: 'iradio_square-green'
+         });
+         
+         
+         $('.skin-flat .i-check input').iCheck({
+             checkboxClass: 'icheckbox_flat-red',
+             radioClass: 'iradio_flat-red'
+         });
+         
+         $('.skin-line .i-check input').each(function () {
+             var self = $(this),
+                     label = self.next(),
+                     label_text = label.text();
+         
+             label.remove();
+             self.iCheck({
+                 checkboxClass: 'icheckbox_line-blue',
+                 radioClass: 'iradio_line-blue',
+                 insert: '<div class="icheck_line-icon"></div>' + label_text
+             });
+         });      
       </script>
    </body>
 
-<!-- Mirrored from thememinister.com/crm/ by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 25 Apr 2020 08:55:35 GMT -->
 </html>
 

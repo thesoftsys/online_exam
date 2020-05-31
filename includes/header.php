@@ -43,6 +43,11 @@
          =====================================================================-->
       <!-- Start page Label Plugins 
          =====================================================================-->
+         <!-- iCheck -->
+      <link href="assets/plugins/icheck/skins/all.css" rel="stylesheet" type="text/css"/>
+      <!-- Bootstrap toggle css -->
+      <link href="assets/plugins/bootstrap-toggle/bootstrap-toggle.min.css" rel="stylesheet" type="text/css"/>
+      
       <!-- Emojionearea -->
       <link href="assets/plugins/emojionearea/emojionearea.min.css" rel="stylesheet" type="text/css"/>
       <!-- Monthly css -->
@@ -57,104 +62,6 @@
       <!--<link href="assets/dist/css/stylecrm-rtl.css" rel="stylesheet" type="text/css"/>-->
       <!-- End Theme Layout Style
          =====================================================================-->
-         <style>
-/* The container */
-.container {
-  display: block;
-  position: relative;
-  padding-left: 60px;
-  margin-bottom: 12px;
-  cursor: pointer;
-  font-size: 18px;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-}
-
-/* Hide the browser's default radio button */
-.container input {
-  position: absolute;
-  opacity: 0;
-  cursor: pointer;
-}
-
-/* Create a custom radio button */
-.checkmark {
-  margin-top: 4px;
-  position: absolute;
-  top: 0;
-  left: 0;
-  margin-left: 35px;
-  height: 20px;
-  width: 20px;
-  background-color: #eee;
-  border-radius: 50%;
-}
-
-/* On mouse-over, add a grey background color */
-.container:hover input ~ .checkmark {
-  background-color: #ccc;
-}
-
-/* When the radio button is checked, add a blue background */
-.container input:checked ~ .checkmark {
-  background-color: #2196F3;
-}
-
-/* Create the indicator (the dot/circle - hidden when not checked) */
-.checkmark:after {
-  content: "";
-  position: absolute;
-  display: none;
-}
-
-/* Show the indicator (dot/circle) when checked */
-.container input:checked ~ .checkmark:after {
-  display: block;
-}
-
-/* Style the indicator (dot/circle) */
-.container .checkmark:after {
- 	top: 6px;
-	left: 6px;
-	width: 8px;
-	height: 8px;
-	border-radius: 50%;
-	background: white;
-}
-.input-container {
-  display: -ms-flexbox; /* IE10 */
-  display: flex;
-  width: 100%;
-  margin-bottom: 15px;
-}
-
-.icon {
-  padding: 10px;
-  background: dodgerblue;
-  color: white;
-  min-width: 45px;
-  height: 45px;
-  text-align: center;
-  border-radius: 50%;
-}
-
-.input-field {
-  width: 100%;
-  padding: 10px;
-  outline: none;
-}
-
-.input-field:focus {
-  border: 2px solid dodgerblue;
-}
-h2{
-   margin-top: 6px;
-   padding-left: 5px;
-}
-
-</style>
    </head>
    <body class="hold-transition sidebar-mini">
       <!--preloader-->

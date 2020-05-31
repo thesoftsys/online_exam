@@ -14,11 +14,71 @@
          $date = date("Y-m-d H:i:s");
          $_SESSION["end_time"] = date("Y-m-d H:i:s",strtotime($date."+$_SESSION[exam_time] minutes"));
         
-         
-
-
-
          ?>
+          <style>
+         
+         /* mobile view table */
+         
+         table { 
+             width: 100%; 
+             table-layout: fixed;
+             border-collapse: collapse; 
+             margin: 0 auto;
+         }
+         /* Zebra striping */
+         tr:nth-of-type(odd) { 
+             background: #f2f2f2; 
+         }
+         th { 
+             background: #D9EDF7; 
+             color: #3C4767; 
+             font-weight: 600; 
+         }
+         td, th { 
+             padding: 12px; 
+             border: 2px solid #ccc; 
+             text-align: left; 
+             text-align: center
+         }
+         /*Mobile View*/
+         @media 
+         only screen and 
+             (max-width: 760px){
+             td, tr { 
+                 display: block; 
+            }
+            
+            /* Hide table headers (but not display: none;, for accessibility) */
+            thead tr { 
+               position: absolute;
+               top: -9999px;
+               left: -9999px;
+            }
+            tr {
+                 border: 1px solid #3c4767; 
+             }
+             tr + tr{
+                 margin-top: 1.5em;
+             }
+            td { 
+               /* make like a "row" */
+               border: none;
+               border-bottom: 2px solid #eee; 
+               position: relative;
+               padding-left: 50%; 
+                 
+                 text-align: left; 
+            }
+            td:before { 
+                 content: attr(data-label);
+                 display: inline-block;
+                 line-height: 1.5;
+                margin-left: -100%;
+                 width: 100%;
+               white-space: nowrap;
+            }
+         }
+               </style>
 
          <!-- =============================================== -->
          <!-- Content Wrapper. Contains page content -->
@@ -124,8 +184,8 @@
                         <!--<div class="table-responsive">
                               
                            </div> -->
-                           <div class="table-responsive">
-                              <table id="dataTableExample1" class="table table-bordered table-striped table-hover">
+                           <div>
+                              <table>
                                  <thead>
                                     <tr class="info">
                                        
@@ -141,17 +201,17 @@
                                     <tr>
                                        
                                        
-                                       <td><?php echo $count; ?></td>
-                                       <td><?php echo $correct; ?></td>
-                                       <td><?php echo $wrong; ?></td>
-                                       <td><?php echo round($percentage); ?>%</td>
+                                       <td data-label="Total Questions" >&nbsp;&nbsp;&nbsp;<?php echo $count; ?></td>
+                                       <td data-label="Correct Answer" >&nbsp;&nbsp;&nbsp;<?php echo $correct; ?></td>
+                                       <td data-label="Wrong Answer" >&nbsp;&nbsp;&nbsp;<?php echo $wrong; ?></td>
+                                       <td data-label="Percentage" >&nbsp;&nbsp;&nbsp;<?php echo round($percentage); ?>%</td>
                                        <?php
                                      if($percentage >= 65)
                                      {
                                        
                                        
                                        ?>
-                                       <td><?php echo "Pass"; ?></td>
+                                       <td data-label="Pass/Fail" >&nbsp;&nbsp;&nbsp;<?php echo "Pass"; ?></td>
                                      <?php
                                       }
                                       else
@@ -160,7 +220,7 @@
                                       
                                      
                                      ?>
-                                     <td><?php echo "Fail"; ?></td>
+                                     <td data-label="Pass/Fail" >&nbsp;&nbsp;&nbsp;<?php echo "Fail"; ?></td>
 
                                      <?php } ?>
                                      <?php
@@ -187,7 +247,7 @@
 
                                          ?>
 
-                                       <td>
+                                       <td data-label="Download Certificate" >&nbsp;&nbsp;&nbsp;
                                           
 
                                           <a href="downloadcertificate.php?downloadid=<?php echo $_SESSION['resultlastid']; ?>" class=" btn btn-sm btn-rounded btn-success">Download</a>

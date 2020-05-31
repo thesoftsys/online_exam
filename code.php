@@ -399,12 +399,13 @@
 
 		case 17:
 					//Exam Pause and live code;
-		$status =  $_REQUEST['status'];
-		$id= $_REQUEST['id'];
+				$status =  $_REQUEST['status'];
+				$id= $_REQUEST['id'];
 
-		$updateStatus = mysqli_query($db,"UPDATE add_new_exam SET status = $status WHERE id = '$id'");
+				$updateStatus = mysqli_query($db,"UPDATE add_new_exam SET status = $status WHERE id = '$id'");
 
-			header('location:view_live_exam.php');
+					// header('location:view_live_exam.php');
+					echo "ok";
 		break;
 
 		case 18:

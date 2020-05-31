@@ -4,7 +4,7 @@
       include('includes/connection.php');
       $sel = "SELECT * FROM add_new_exam ORDER BY id DESC";
       $query = mysqli_query($db,$sel);
-     
+      
 
       ?>
          <!-- =============================================== -->
@@ -39,14 +39,7 @@
                                  <a class="btn btn-add" href="add_new_exam.php"> <i class="fa fa-plus"></i>Add New Exam
                                  </a>  
                               </div>
-                              <button class="btn btn-exp btn-sm dropdown-toggle" data-toggle="dropdown"><i class="fa fa-bars">&nbsp;</i>Download Exam</button>
-                              <ul class="dropdown-menu exp-drop" role="menu">
-                               
-                                 <li>
-                                    <a href="#" onclick="$('#dataTableExample1').tableExport({type:'pdf',pdfFontSize:'7',escape:'false'});">
-                                    <img src="assets/dist/img/pdf.png" width="24" alt="logo"> PDF</a>
-                                 </li>
-                              </ul>
+                           
                            </div>
                            <br>
                            <!-- Plugin content:powerpoint,txt,pdf,png,word,xl -->
@@ -69,12 +62,17 @@
                                     $sr = 1;
                                     while( $row = mysqli_fetch_array($query,MYSQLI_BOTH))
                                     {
+                                       $examId = $row['id'];
                                        $courseId = $row['course_id'];
+                                       
                                        $selExamName = mysqli_query($db,"SELECT * FROM add_course WHERE id = '$courseId'");
                                        while($getExamName = mysqli_fetch_array($selExamName,MYSQLI_BOTH))
+
                                        {
-                                          
-                                     
+                                       $selTotalQuestionInsertd = mysqli_query($db,"SELECT *FROM add_questions WHERE exam_id = '$examId'");
+                                       $totalQuestionInderted = mysqli_num_rows($selTotalQuestionInsertd);
+                                          $totalNoOfquestion  = $row['nquestion'];
+                                          $id = $row['id'];
 
                                  ?>
                                  <tbody>
@@ -83,25 +81,53 @@
                                        <td><?php echo $sr++;?></td>
                                        <td><?php echo $getExamName['cname'] ?></td>
                                        <td><?php echo $row['ename']; ?></td>
-                                       <td><?php echo $row['nquestion']; ?></td>
+                                       <td><b><?php echo $totalQuestionInderted.'</b> Out Of <b> '.$row['nquestion']; ?></b></td>
                                        <td><?php echo $row['exam_time']; ?> Min</td>
                                        <td><?php echo $row['pmax']; ?></td>
                                        <td><?php echo $row['equestionm']; ?></td>
                                        <td>
-                                          <span class="label-warning label label-default">
+                                          
+                                         
 
                                           <?php if($row['status'] == '1')
 
                                           {
-                                          echo "<a href='code.php?flag=17&status=0&id=$row[id]'>Pause</a>";
+                                         
+                                          ?>
+                                             <input type="checkbox"  id="togglebtn<?php echo $row['id'] ?>"  onchange="fun(<?php echo $row['id'] ?>)" data-toggle="toggle" data-on="Go Live" data-off="Go Pause" data-onstyle="success" data-offstyle="danger">
+
+                                          <?php 
+                                          
                                           }
                                           else
                                           {
-                                          echo "<a href='code.php?flag=17&status=1&id=$row[id]'>Live</a>";
-                                          } ?></span>
+                                             ?>
+                                                <input type="checkbox" id="togglebtn<?php echo $row['id'] ?>"  onchange="fun(<?php echo $row['id'] ?>)" data-toggle="toggle" data-on="Go Live" data-off="Go Pause" data-onstyle="success" data-offstyle="danger" checked="checked" 
+                                                <?php 
+                                             if($totalQuestionInderted != $row['nquestion'] || $totalQuestionInderted == 0)
+                                             { 
+                                                echo 'disabled';
+                                                
+                                             }
+                                             else
+                                             {
+                                                
+                                             }  
+                                             
+                                             ?>
+                                                >
+                                             <?php
+
+                                            
+                                          } ?>
+                                          
+                                    
                                        </td>
                                        <td>
-                                          <button type="button" class="btn btn-add btn-sm" data-toggle="modal" data-target="#<?php echo $row['id'] ?>"><i class="fa fa-pencil"></i></button>
+                                           
+                                    
+                               
+                                          <button type="button" onclick="editRecord(<?php echo $row['id'];?>,<?php echo $totalQuestionInderted; ?>,<?php echo $totalNoOfquestion; ?>)" id="chklive<?php echo $row['id']; ?>"  class="btn btn-add btn-sm" data-toggle="modal" ><i class="fa fa-pencil"></i></button>
                                           <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#customer2<?php echo $row['id'] ?>"><i class="fa fa-trash-o"></i> </button>
                                        </td>
                                     </tr>
@@ -227,6 +253,82 @@
             <!-- /.content -->
              
          </div>
+         <script>
+            
+            
+            function fun(id)
+            {
+               var togid = "#togglebtn"+id ;
+              
+
+               if($(togid).attr( "checked" ) == "checked")
+               {
+                     $(togid).removeAttr("checked");
+                     $.notify("Exam Is Live", "success");
+                     //  alert(1);
+
+                     var xmlhttp = new XMLHttpRequest();
+                     xmlhttp.onreadystatechange = function(){
+
+                        if(xmlhttp.readyState == 4 && xmlhttp.status == 200)
+                        {
+                           
+                           // alert(xmlhttp.responseText);
+                           
+                        }
+                     };
+                     xmlhttp.open("GET","code.php?flag=17&status=1&id="+id  ,true);
+                     xmlhttp.send(null); 
+
+                    
+
+                  }else{
+                     
+                     
+                     $(togid).attr("checked","checked");
+                     $.notify("Exam is Pause", "error");
+                     // alert(0);
+                     var xmlhttp = new XMLHttpRequest();
+                     xmlhttp.onreadystatechange = function(){
+
+                        if(xmlhttp.readyState == 4 && xmlhttp.status == 200)
+                        {
+                           
+                           // alert(xmlhttp.responseText);
+                           
+                        }
+                     };
+                     xmlhttp.open("GET","code.php?flag=17&status=0   &id="+id  ,true);
+                     xmlhttp.send(null); 
+
+                     
+                  }
+                  
+                  }
+
+                  function editRecord(id,totalQuestionInderted,totalNoOfquestion)
+                  {
+                     var editid = "togglebtn"+id;
+                     var toggelButton = document.getElementById(editid);
+                   
+                  var totalQuestionInserted = "<?php echo $totalQuestionInderted; ?>";
+
+                  
+                     if(totalQuestionInderted == totalNoOfquestion && $(toggelButton).attr( "checked" ) != "checked")
+                     {
+                        alert("Please First Pause Live Exam");
+                     }
+                     else
+                     {
+                        $("#"+id).modal("show");
+                        
+                     }
+
+                  
+                  }
+
+         </script>
+         
 
          <?php include('includes/footer.php'); ?>
         
