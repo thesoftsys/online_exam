@@ -41,13 +41,6 @@
                                  </a>  
                               </div>
 
-                              <button class="btn btn-exp btn-sm dropdown-toggle" data-toggle="dropdown"><i class="fa fa-bars"></i> Export Table Data</button>
-                              <ul class="dropdown-menu exp-drop" role="menu">
-                                 <li>
-                                    <a href="#" onclick="$('#dataTableExample1').tableExport({type:'pdf',pdfFontSize:'7',escape:'false'});"> 
-                                    <img src="assets/dist/img/pdf.png" width="24" alt="logo"> PDF</a>
-                                 </li>
-                              </ul>
                            </div>
                            <br><br>        
                            <!-- Plugin content:powerpoint,txt,pdf,png,word,xl -->
@@ -95,9 +88,10 @@
                                        <td><?php echo $row['right_option']; ?></td>
                                        <td>
                                           
-                                          <button type="button" class="btn btn-add btn-sm" data-toggle="modal" data-target="#<?php echo $row ['id'];?>"><i class="fa fa-pencil"></i></b
-                                             utton>
-                                          <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#customer2<?php echo $row['id'] ?>"><i class="fa fa-trash-o"></i> </button>
+                                          <button type="button" class="btn btn-add btn-sm" data-toggle="modal" data-target="#<?php echo $row ['id'];?>"><i class="fa fa-pencil"></i></button>
+
+
+                                          <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" onclick="chkLive(<?php echo $examId; ?>,<?php echo $row['id']; ?>)" ><i class="fa fa-trash-o"></i> </button>
                                        </td>
                                     </tr>
 
@@ -126,33 +120,33 @@
                                        <!-- Text input-->
                                        <div class="col-md-6 form-group">
                                           <label class="control-label">Enter Question:</label>
-                                          <input type="text" value="<?php echo $row['question']; ?>" name ="question" placeholder="Enter Question" class="form-control">
+                                          <input type="text" id="qus" value="<?php echo $row['question']; ?>" name ="question" placeholder="Enter Question" class="form-control">
                                        </div>
                                        <div class="col-md-6 form-group">
                                           <label class="control-label">Option One</label>
-                                          <input type="text" value="<?php echo $row['option_one']; ?> " name ="option_one" placeholder="Option One" class="form-control">
+                                          <input type="text" id="op1" value="<?php echo $row['option_one']; ?> " name ="option_one" placeholder="Option One" class="form-control">
                                        </div>
                                        <div class="col-md-6 form-group">
                                           <label class="control-label">Option Two</label>
-                                          <input type="text" value="<?php echo $row['option_two']; ?>" name ="option_two" placeholder="Option Two" class="form-control">
+                                          <input type="text" id="op2" value="<?php echo $row['option_two']; ?>" name ="option_two" placeholder="Option Two" class="form-control">
                                        </div>
                                         <div class="col-md-6 form-group">
                                           <label class="control-label">Option Three</label>
-                                          <input type="text" name ="option_three" value="<?php echo $row['option_three']; ?>" class="form-control">
+                                          <input type="text" id="op3" name ="option_three" value="<?php echo $row['option_three']; ?>" class="form-control">
                                        </div>
                                         <div class="col-md-6 form-group">
                                           <label class="control-label">Option Four</label>
-                                          <input type="text" name ="option_four" value="<?php echo $row['option_four']; ?>" class="form-control">
+                                          <input type="text" id="op4" name ="option_four" value="<?php echo $row['option_four']; ?>" class="form-control">
                                        </div>
                                         <div class="col-md-6 form-group">
                                           <label class="control-label">Right Option</label>
-                                          <input type="text" name ="right_option" value="<?php echo $row['right_option']; ?>" class="form-control">
+                                          <input type="text" id="ans" name ="right_option" value="<?php echo $row['right_option']; ?>" onblur="chekAns();" class="form-control">
                                        </div>
 
                                        <div class="col-md-12 form-group user-form-group">
                                           <div class="pull-right">
                                              <button type="button" data-dismiss="modal"  class="btn btn-danger btn-sm">Cancel</button>
-                                             <button type="submit" class="btn btn-add btn-sm">Update</button>
+                                             <button type="submit" id="updatebtn" class="btn btn-add btn-sm" disabled >Update</button>
                                           </div>
                                        </div>
                                     </fieldset>
@@ -172,7 +166,7 @@
                 <!-- /.modal -->
                <!-- Modal -->    
                <!-- Customer Modal2 -->
-               <div class="modal fade" id="customer2<?php echo $row['id'] ?>" tabindex="-1" role="dialog" aria-hidden="true">
+               <div class="modal fade" id="deletequs<?php echo $row['id'] ?>" tabindex="-1" role="dialog" aria-hidden="true">
                   <div class="modal-dialog">
                      <div class="modal-content">
                         <div class="modal-header modal-header-primary">
@@ -228,6 +222,66 @@
             </section>
             <!-- /.content -->
          </div>
+         <script>
+            function chekAns()
+               {
+                  var qus = document.getElementById("qus").value;
+                  var op1 = document.getElementById("op1").value;
+                  var op2 = document.getElementById("op2").value;
+                  var op3 = document.getElementById("op3").value;
+                  var op4 = document.getElementById("op4").value;
+                  var ans = document.getElementById("ans").value;
+                  var updatebtn = document.getElementById("updatebtn");
+                  
+
+                  if( qus == "" || op1 == "" || op2 == "" || op3 == "" || op4 == "" || ans == "")
+                  {
+
+                        swal("Opps!", "Please Fill All Field", "error");
+                  }
+                  else
+                  {
+                        if(op1 == ans || op2 == ans || op3 == ans || op4 == ans)
+                           {
+                              updatebtn.removeAttribute("disabled");
+                           }
+
+                           else
+                           {
+                              updatebtn.disabled = true; 
+                              swal("Opps!", "Please Enter Right Answer ", "error");
+                           }
+                  }        
+               }
+
+
+               function chkLive(id,qusid)
+               {
+                  
+                  var xmlhttp = new XMLHttpRequest();
+                     xmlhttp.onreadystatechange = function(){
+
+                        if(xmlhttp.readyState == 4 && xmlhttp.status == 200)
+                        {
+                           // alert(xmlhttp.responseText);
+                           if(xmlhttp.responseText == 'pause')
+                           {
+                              $("#deletequs"+qusid).modal("show");
+                              // alert("pause");
+                           }
+                           else
+                           {
+                              swal("Opps!", "Please Pause Exam ", "error");
+                           }
+                           
+                        }
+                     };
+                     xmlhttp.open("GET","code.php?flag=25&id="+id  ,true);
+                     xmlhttp.send(null); 
+               }
+
+
+         </script>
 
          <?php include('includes/footer.php'); ?>
         

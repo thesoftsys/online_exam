@@ -78,7 +78,7 @@
                                         <div class="form-group">
                                     
                                             <label>Enter Question</label>
-                                            <input type="text" required name="qus" class="form-control disableInput ">
+                                            <input type="text" required name="qus" id="qus" class="form-control disableInput ">
                                         </div>
 
                                    </div>
@@ -86,7 +86,7 @@
                                         
                                         <div class="form-group">
                                             <label>Option 1</label>
-                                            <input type="text" name="op1" required class="form-control disableInput ">
+                                            <input type="text" name="op1" id="op1" required class="form-control disableInput ">
                                         </div>
                                    </div>
 
@@ -94,28 +94,28 @@
                                         
                                         <div class="form-group">
                                             <label>Option 2</label>
-                                            <input type="text" name="op2" required class="form-control disableInput ">
+                                            <input type="text" name="op2" id="op2" required class="form-control disableInput ">
                                         </div>
                                    </div>
                                    <div class="col-sm-6">
                                         
                                         <div class="form-group">
                                             <label>Option 3</label>
-                                            <input type="text" name="op3" required class="form-control disableInput ">
+                                            <input type="text" name="op3" id="op3" required class="form-control disableInput ">
                                         </div>
                                    </div>
                                    <div class="col-sm-6">
                                         
                                         <div class="form-group">
                                             <label>Option 4</label>
-                                            <input type="text" name="op4" required class="form-control disableInput ">
+                                            <input type="text" name="op4" id="op4" required class="form-control disableInput ">
                                         </div>
                                    </div>
                                    <div class="col-sm-12">
                                         
                                         <div class="form-group">
                                             <label>Answer</label>
-                                            <input type="text" name="ans" required class="form-control disableInput ">
+                                            <input type="text" name="ans" id="ans" onblur="chekAns();" required class="form-control disableInput ">
                                         </div>
                                    </div>
                             
@@ -125,7 +125,7 @@
                           
                   
                               <div class="reset-button">
-                                 <input type="submit" name="submit" class="btn btn-success disableInput " value="Upload"/>
+                                 <input type="submit" name="submit" id="uploadbtn" class="btn btn-success disableInput "  disabled value="Upload"/>
                               </div>
                            </form>
                         </div>
@@ -205,6 +205,43 @@
        
         
     }
+    
+    function chekAns()
+    {
+        var qus = document.getElementById("qus").value;
+        var op1 = document.getElementById("op1").value;
+        var op2 = document.getElementById("op2").value;
+        var op3 = document.getElementById("op3").value;
+        var op4 = document.getElementById("op4").value;
+        var ans = document.getElementById("ans").value;
+        var uploadBtn = document.getElementById("uploadbtn");
+
+        if( qus == "" || op1 == "" || op2 == "" || op3 == "" || op4 == "" || ans == "")
+        {
+
+            swal("Opps!", "Please Fill All Field", "error");
+        }
+        else
+        {
+            if(op1 == ans || op2 == ans || op3 == ans || op4 == ans)
+                {
+                    uploadBtn.removeAttribute("disabled");
+                }
+
+                else
+                {
+                    uploadBtn.disabled = true; 
+                    swal("Opps!", "Please Enter Right Answer ", "error");
+                }
+        }        
+    }
+
+
+
+
+
+
+
    
 </script>
 

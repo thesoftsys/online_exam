@@ -7,6 +7,13 @@
       
 
       ?>
+      <style>
+
+
+.modal-body {
+  overflow-x: auto;
+}
+      </style>
          <!-- =============================================== -->
          <!-- Content Wrapper. Contains page content -->
          <div class="content-wrapper">
@@ -94,7 +101,7 @@
                                           {
                                          
                                           ?>
-                                             <input type="checkbox"  id="togglebtn<?php echo $row['id'] ?>"  onchange="fun(<?php echo $row['id'] ?>)" data-toggle="toggle" data-on="Go Live" data-off="Go Pause" data-onstyle="success" data-offstyle="danger">
+                                             <input type="checkbox"  id="togglebtn<?php echo $row['id'] ?>"  onchange="examLivePause(<?php echo $row['id'] ?>)" data-toggle="toggle" data-on="Go Live" data-off="Go Pause" data-onstyle="success" data-offstyle="danger">
 
                                           <?php 
                                           
@@ -102,7 +109,7 @@
                                           else
                                           {
                                              ?>
-                                                <input type="checkbox" id="togglebtn<?php echo $row['id'] ?>"  onchange="fun(<?php echo $row['id'] ?>)" data-toggle="toggle" data-on="Go Live" data-off="Go Pause" data-onstyle="success" data-offstyle="danger" checked="checked" 
+                                                <input type="checkbox" id="togglebtn<?php echo $row['id'] ?>"  onchange="examLivePause(<?php echo $row['id'] ?>)" data-toggle="toggle" data-on="Go Live" data-off="Go Pause" data-onstyle="success" data-offstyle="danger" checked="checked" 
                                                 <?php 
                                              if($totalQuestionInderted != $row['nquestion'] || $totalQuestionInderted == 0)
                                              { 
@@ -128,7 +135,13 @@
                                     
                                
                                           <button type="button" onclick="editRecord(<?php echo $row['id'];?>,<?php echo $totalQuestionInderted; ?>,<?php echo $totalNoOfquestion; ?>)" id="chklive<?php echo $row['id']; ?>"  class="btn btn-add btn-sm" data-toggle="modal" ><i class="fa fa-pencil"></i></button>
+                                          
                                           <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#customer2<?php echo $row['id'] ?>"><i class="fa fa-trash-o"></i> </button>
+
+                                          <!-- <button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#viewQuestions<?php echo $row['id'] ?>"><i class="fa fa-eye"></i> </button> -->
+
+                                          <a href="view_exam_questions.php?examid=<?php echo $row['id']; ?>" class="btn btn-success btn-sm"><i class="fa fa-eye"></i></a>
+                                          
                                        </td>
                                     </tr>
 
@@ -232,9 +245,14 @@
                   </div>
                   <!-- /.modal-dialog -->
                </div>
+               
 
-                                    <?php 
+               <!--show question modal-->
+
+
+                              <?php 
                                     }
+                                    
                                  } 
                                  
                                  ?>
@@ -256,7 +274,7 @@
          <script>
             
             
-            function fun(id)
+            function examLivePause(id)
             {
                var togid = "#togglebtn"+id ;
               
@@ -316,11 +334,33 @@
                   
                      if(totalQuestionInderted == totalNoOfquestion && $(toggelButton).attr( "checked" ) != "checked")
                      {
-                        alert("Please First Pause Live Exam");
+                        swal("Error", "Please Pause Live Exam", "error");
                      }
                      else
                      {
                         $("#"+id).modal("show");
+                        
+                     }
+
+                  
+                  }
+
+
+                  function viewRecord(id,totalQuestionInderted,totalNoOfquestion)
+                  {
+                     var editid = "togglebtn"+id;
+                     var toggelButton = document.getElementById(editid);
+                   
+                  var totalQuestionInserted = "<?php echo $totalQuestionInderted; ?>";
+
+                  
+                     if(totalQuestionInderted == totalNoOfquestion && $(toggelButton).attr( "checked" ) != "checked")
+                     {
+                        swal("Error", "Please Pause Live Exam", "error");
+                     }
+                     else
+                     {
+                        $("#editQuestion"+id).modal("show");
                         
                      }
 

@@ -47,6 +47,7 @@
       <!-- Dashboard js -->
       <script src="assets/dist/js/dashboard.js" type="text/javascript"></script>
       <script src="assets/dist/js/notify.js" type="text/javascript"></script>
+      <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
       <!-- End Theme label Script
          =====================================================================-->
       <script>

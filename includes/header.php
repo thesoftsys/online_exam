@@ -88,7 +88,7 @@
                   <span class="pe-7s-angle-left-circle"></span>
                </a>
                <!-- searchbar-->
-               <a href="#search"><span class="pe-7s-search"></span></a>
+               <a href=""><span class="pe-7s-search"></span></a>
                <div id="search">
                  <button type="button" class="close">×</button>
                  <form>

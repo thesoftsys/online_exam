@@ -555,6 +555,51 @@
 			}
 			
 		break;
+
+		case 24:
+			//update exam wise questions
+				extract($_POST);
+				$uid = $_REQUEST['uid'];
+				
+
+				$update = "UPDATE add_questions SET  question= '$question', option_one = '$option_one', option_two = '$option_two', option_three = '$option_three', option_four = '$option_four', right_option = '$right_option' WHERE id = '$uid' ";
+				$query= mysqli_query($db,$update);
+
+				if($query)
+				{
+
+				echo "<script>alert('View Questions List Updated Successfully');location.href='view_exam_questions.php?examid=$examid'</script>";
+				}
+		break;
+
+		case 25:
+			$id = $_GET['id'];
+			$sel = mysqli_query($db,"SELECT *FROM add_new_exam WHERE id = '$id'");
+			$liveOrPause = mysqli_fetch_array($sel,MYSQLI_BOTH);
+
+			if($liveOrPause['status'] == '0')
+			{
+				echo "pause";
+			}
+			else
+			{
+				echo "live";
+			}
+
+		break;
+
+		case 26;
+
+			$delId= $_REQUEST['delid'];
+			$examId = $_REQUEST['examid'];
+			
+			$delQuery = mysqli_query($db,"DELETE FROM add_questions WHERE id = '$delId'");
+			if($delQuery)
+			{
+				header("Location:view_exam_questions.php?examid=$examId");
+			}
+
+		break;
 	}
 	
 
